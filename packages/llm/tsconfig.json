@@ -1,0 +1,6 @@
+{
+  "extends": "@test-evals/config/tsconfig.base.json",
+  "compilerOptions": {
+    "resolveJsonModule": true
+  }
+}

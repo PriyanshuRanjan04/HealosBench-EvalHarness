@@ -1,0 +1,15 @@
+{
+  "extends": "@test-evals/config/tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@test-evals/shared": ["./packages/shared/src/index.ts"],
+      "@test-evals/shared/*": ["./packages/shared/src/*.ts"],
+      "@test-evals/db": ["./packages/db/src/index.ts"],
+      "@test-evals/db/*": ["./packages/db/src/*.ts"],
+      "@test-evals/env/server": ["./packages/env/src/server.ts"],
+      "@test-evals/env/web": ["./packages/env/src/web.ts"],
+      "@test-evals/llm": ["./packages/llm/src/index.ts"],
+      "@test-evals/llm/*": ["./packages/llm/src/*.ts"]
+    }
+  }
+}
