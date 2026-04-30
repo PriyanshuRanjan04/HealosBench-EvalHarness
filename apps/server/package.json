@@ -23,6 +23,7 @@
   "devDependencies": {
     "@test-evals/config": "workspace:*",
     "@types/bun": "catalog:",
+    "drizzle-orm": "^0.45.1",
     "tsdown": "^0.21.9",
     "typescript": "catalog:"
   }
