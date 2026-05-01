@@ -96,7 +96,10 @@ export class GroqProvider implements LLMProvider {
 
     // Convert Anthropic-shaped messages to Groq (OpenAI-compatible) format.
     // For Groq we only keep the user-visible content (skip tool_result turns).
-    const groqMessages: Groq.ChatCompletionMessageParam[] = messages
+    // Note: Groq.ChatCompletionMessageParam does not exist in v1.1.2 at the
+    // namespace level — use an explicit inline shape instead.
+    type GroqMessage = { role: "system" | "user" | "assistant"; content: string };
+    const groqMessages: GroqMessage[] = messages
       .filter((m): m is { role: "user" | "assistant"; content: string } => {
         if (m.role !== "user" && m.role !== "assistant") return false;
         // Skip non-string content blocks (tool results, etc.)

@@ -158,6 +158,7 @@ export async function extract(
     try {
       providerResponse = await provider.call(transcript, strategy, model, messages);
     } catch (err) {
+      console.error(`[extractor] provider.call() failed on attempt ${attempt} for transcript (model=${model}):`, err instanceof Error ? err.message : String(err));
       trace.push({
         request: requestSnapshot as Record<string, unknown>,
         response: { error: String(err) },

@@ -1,12 +1,12 @@
 {
-  "runId": "f9e729ca-65d7-47b0-9a31-63b8eb783a93",
-  "strategy": "few_shot",
+  "runId": "77f848b2-ba8d-4aaa-9121-88f5cb588fb7",
+  "strategy": "zero_shot",
   "model": "claude-haiku-4-5-20251001",
-  "timestamp": "2026-05-01T09:04:25.033Z",
+  "timestamp": "2026-05-01T09:49:47.595Z",
   "cases": [
     {
       "transcriptId": "case_001",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -37,256 +37,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 150
+      "wallTimeMs": 254
     },
     {
       "transcriptId": "case_006",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 80
-    },
-    {
-      "transcriptId": "case_005",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 79
-    },
-    {
-      "transcriptId": "case_003",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 117
-    },
-    {
-      "transcriptId": "case_004",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 118
-    },
-    {
-      "transcriptId": "case_002",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 80
-    },
-    {
-      "transcriptId": "case_007",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_008",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 77
-    },
-    {
-      "transcriptId": "case_010",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -320,8 +75,8 @@
       "wallTimeMs": 74
     },
     {
-      "transcriptId": "case_009",
-      "strategy": "few_shot",
+      "transcriptId": "case_002",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -352,11 +107,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 84
     },
     {
-      "transcriptId": "case_011",
-      "strategy": "few_shot",
+      "transcriptId": "case_004",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -387,11 +142,81 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 77
+      "wallTimeMs": 111
     },
     {
-      "transcriptId": "case_012",
-      "strategy": "few_shot",
+      "transcriptId": "case_005",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 132
+    },
+    {
+      "transcriptId": "case_003",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 141
+    },
+    {
+      "transcriptId": "case_007",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -425,8 +250,8 @@
       "wallTimeMs": 75
     },
     {
-      "transcriptId": "case_013",
-      "strategy": "few_shot",
+      "transcriptId": "case_008",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -457,11 +282,186 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 80
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_009",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 71
+    },
+    {
+      "transcriptId": "case_012",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_011",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 78
+    },
+    {
+      "transcriptId": "case_010",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 70
+    },
+    {
+      "transcriptId": "case_013",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 73
     },
     {
       "transcriptId": "case_014",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -496,7 +496,7 @@
     },
     {
       "transcriptId": "case_015",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -527,11 +527,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 83
     },
     {
       "transcriptId": "case_017",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -562,11 +562,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 77
+      "wallTimeMs": 85
     },
     {
       "transcriptId": "case_016",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -597,11 +597,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 76
+      "wallTimeMs": 83
     },
     {
       "transcriptId": "case_018",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -632,11 +632,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 77
+      "wallTimeMs": 73
     },
     {
       "transcriptId": "case_019",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -671,7 +671,7 @@
     },
     {
       "transcriptId": "case_020",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -702,11 +702,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 72
     },
     {
       "transcriptId": "case_021",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -737,11 +737,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 74
     },
     {
       "transcriptId": "case_022",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -776,7 +776,7 @@
     },
     {
       "transcriptId": "case_023",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -807,11 +807,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 76
+      "wallTimeMs": 70
     },
     {
       "transcriptId": "case_024",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -842,11 +842,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 76
+      "wallTimeMs": 74
     },
     {
       "transcriptId": "case_025",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -877,11 +877,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 76
+      "wallTimeMs": 71
     },
     {
       "transcriptId": "case_026",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -912,11 +912,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 77
+      "wallTimeMs": 71
     },
     {
       "transcriptId": "case_027",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -947,11 +947,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 77
+      "wallTimeMs": 72
     },
     {
       "transcriptId": "case_028",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -982,11 +982,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 75
     },
     {
       "transcriptId": "case_029",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -1017,11 +1017,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 88
+      "wallTimeMs": 72
     },
     {
       "transcriptId": "case_030",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -1052,11 +1052,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 88
+      "wallTimeMs": 75
     },
     {
       "transcriptId": "case_031",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -1087,11 +1087,11 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 81
     },
     {
       "transcriptId": "case_032",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -1126,567 +1126,7 @@
     },
     {
       "transcriptId": "case_033",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_034",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 80
-    },
-    {
-      "transcriptId": "case_035",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 80
-    },
-    {
-      "transcriptId": "case_036",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_037",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_038",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 81
-    },
-    {
-      "transcriptId": "case_039",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 77
-    },
-    {
-      "transcriptId": "case_040",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_041",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 77
-    },
-    {
-      "transcriptId": "case_042",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 77
-    },
-    {
-      "transcriptId": "case_043",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 90
-    },
-    {
-      "transcriptId": "case_044",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 77
-    },
-    {
-      "transcriptId": "case_045",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 80
-    },
-    {
-      "transcriptId": "case_046",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_047",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 77
-    },
-    {
-      "transcriptId": "case_048",
-      "strategy": "few_shot",
-      "prediction": null,
-      "scores": {
-        "chief_complaint": 0,
-        "vitals": 0,
-        "medications": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "diagnoses": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "plan": {
-          "precision": 0,
-          "recall": 0,
-          "f1": 0
-        },
-        "follow_up": 0,
-        "overall": 0
-      },
-      "attempts": 1,
-      "tokensInput": 0,
-      "tokensOutput": 0,
-      "tokensCacheRead": 0,
-      "tokensCacheWrite": 0,
-      "costUsd": 0,
-      "hallucinations": [],
-      "schemaValid": false,
-      "wallTimeMs": 78
-    },
-    {
-      "transcriptId": "case_049",
-      "strategy": "few_shot",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -1720,8 +1160,8 @@
       "wallTimeMs": 75
     },
     {
-      "transcriptId": "case_050",
-      "strategy": "few_shot",
+      "transcriptId": "case_034",
+      "strategy": "zero_shot",
       "prediction": null,
       "scores": {
         "chief_complaint": 0,
@@ -1752,7 +1192,567 @@
       "costUsd": 0,
       "hallucinations": [],
       "schemaValid": false,
-      "wallTimeMs": 78
+      "wallTimeMs": 89
+    },
+    {
+      "transcriptId": "case_035",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_036",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_037",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 74
+    },
+    {
+      "transcriptId": "case_038",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 74
+    },
+    {
+      "transcriptId": "case_039",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_040",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 75
+    },
+    {
+      "transcriptId": "case_041",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_042",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
+    },
+    {
+      "transcriptId": "case_043",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 73
+    },
+    {
+      "transcriptId": "case_044",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 81
+    },
+    {
+      "transcriptId": "case_045",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 71
+    },
+    {
+      "transcriptId": "case_046",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 82
+    },
+    {
+      "transcriptId": "case_047",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 69
+    },
+    {
+      "transcriptId": "case_048",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 81
+    },
+    {
+      "transcriptId": "case_049",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 74
+    },
+    {
+      "transcriptId": "case_050",
+      "strategy": "zero_shot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 72
     }
   ]
 }
