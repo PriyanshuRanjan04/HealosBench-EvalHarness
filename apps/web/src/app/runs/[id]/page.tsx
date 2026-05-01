@@ -35,10 +35,10 @@ function StatCard({
   accent?: string;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
-      <p className="mb-1 text-xs font-medium uppercase tracking-wider text-zinc-500">{label}</p>
-      <p className={`text-2xl font-bold ${accent ?? "text-zinc-100"}`}>{value}</p>
-      {sub && <p className="mt-0.5 text-xs text-zinc-500">{sub}</p>}
+    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+      <p className="mb-1 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-zinc-500">{label}</p>
+      <p className={`text-2xl font-bold ${accent ?? "text-gray-900 dark:text-zinc-100"}`}>{value}</p>
+      {sub && <p className="mt-0.5 text-xs text-gray-400 dark:text-zinc-500">{sub}</p>}
     </div>
   );
 }
@@ -46,14 +46,14 @@ function StatCard({
 // ── Comparison tab ────────────────────────────────────────────────────────────
 
 function fieldClass(score: number): string {
-  if (score >= 0.75) return "bg-emerald-900/30 border-emerald-700/40 text-emerald-200";
-  if (score > 0)     return "bg-amber-900/30 border-amber-700/40 text-amber-200";
-  return "bg-red-900/20 border-red-700/30 text-red-300";
+  if (score >= 0.75) return "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/30 dark:border-emerald-700/40 dark:text-emerald-200";
+  if (score >  0)   return "bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/30 dark:border-amber-700/40 dark:text-amber-200";
+  return "bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-700/30 dark:text-red-300";
 }
 
 function JsonBlock({ data }: { data: unknown }) {
   return (
-    <pre className="overflow-x-auto rounded-lg bg-zinc-950 p-3 text-xs text-zinc-300">
+    <pre className="overflow-x-auto rounded-lg bg-gray-50 p-3 text-xs text-gray-700 dark:bg-zinc-950 dark:text-zinc-300">
       {JSON.stringify(data, null, 2)}
     </pre>
   );
@@ -193,17 +193,17 @@ function ExpandedCase({ cr }: { cr: CaseResult }) {
   ];
 
   return (
-    <div className="border-t border-zinc-800 bg-zinc-950 px-4 py-4">
+    <div className="border-t border-gray-200 bg-gray-50 px-4 py-4 dark:border-zinc-800 dark:bg-zinc-950">
       {/* Tabs */}
-      <div className="mb-4 flex gap-1 border-b border-zinc-800 pb-0">
+      <div className="mb-4 flex gap-1 border-b border-gray-200 pb-0 dark:border-zinc-800">
         {tabs.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`flex items-center gap-1.5 rounded-t px-3 py-1.5 text-xs font-medium transition-colors ${
               tab === t.id
-                ? "border-b-2 border-blue-500 text-blue-300"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-300"
+                : "text-gray-400 hover:text-gray-600 dark:text-zinc-500 dark:hover:text-zinc-300"
             }`}
           >
             {t.label}
@@ -246,10 +246,10 @@ function CasesTable({ cases }: { cases: CaseResult[] }) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-zinc-800">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-transparent">
       <table className="w-full text-sm">
-        <thead className="border-b border-zinc-800 bg-zinc-900/70">
-          <tr className="text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <thead className="border-b border-gray-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-900/70">
+          <tr className="text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-zinc-500">
             <th className="w-6 px-3 py-3" />
             <th className="px-3 py-3">Case ID</th>
             <th className="px-3 py-3">Chief Complaint</th>
@@ -271,16 +271,16 @@ function CasesTable({ cases }: { cases: CaseResult[] }) {
                 <tr
                   key={cr.transcriptId}
                   onClick={() => toggle(cr.transcriptId)}
-                  className={`cursor-pointer border-b border-zinc-800/60 transition-colors ${
-                    isOpen ? "bg-zinc-800/40" : "hover:bg-zinc-800/25"
+                  className={`cursor-pointer border-b border-gray-100 transition-colors dark:border-zinc-800/60 ${
+                    isOpen ? "bg-blue-50 dark:bg-zinc-800/40" : "hover:bg-gray-50 dark:hover:bg-zinc-800/25"
                   }`}
                 >
                   {/* Chevron */}
-                  <td className="px-3 py-2.5 text-zinc-500">
+                  <td className="px-3 py-2.5 text-gray-400 dark:text-zinc-500">
                     <span className={`inline-block transition-transform ${isOpen ? "rotate-90" : ""}`}>▶</span>
                   </td>
                   {/* Case ID */}
-                  <td className="px-3 py-2.5 font-mono text-xs text-zinc-300">{cr.transcriptId}</td>
+                  <td className="px-3 py-2.5 font-mono text-xs text-gray-600 dark:text-zinc-300">{cr.transcriptId}</td>
                   {/* Chief complaint score */}
                   <td className="px-3 py-2.5">
                     <ScoreBar score={scores.chief_complaint} showLabel={false} />
@@ -404,23 +404,24 @@ export default function RunDetailPage({ params }: { params: Promise<{ id: string
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
+    <div className="page-gradient">
     <div className="mx-auto max-w-7xl px-4 py-8">
 
       {/* Back + header */}
       <div className="mb-6">
         <button
           onClick={() => router.push("/")}
-          className="mb-3 text-sm text-zinc-500 hover:text-zinc-300"
+          className="mb-3 text-sm text-gray-500 hover:text-gray-700 dark:text-zinc-500 dark:hover:text-zinc-300"
         >
           ← All runs
         </button>
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-bold text-zinc-100">Run Detail</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">Run Detail</h1>
           <RunStatusBadge status={run.status} />
-          <span className="rounded-full border border-zinc-700 bg-zinc-800 px-2.5 py-0.5 text-xs text-zinc-400">
+          <span className="rounded-full border border-gray-200 bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">
             {run.strategy.replace(/_/g, " ")}
           </span>
-          <span className="rounded-full border border-zinc-700 bg-zinc-800 px-2.5 py-0.5 font-mono text-xs text-zinc-400">
+          <span className="rounded-full border border-gray-200 bg-gray-100 px-2.5 py-0.5 font-mono text-xs text-gray-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">
             {run.model}
           </span>
         </div>
@@ -499,11 +500,12 @@ export default function RunDetailPage({ params }: { params: Promise<{ id: string
         <button
           id="compare-btn"
           onClick={() => router.push(`/runs/compare?a=${run.id}`)}
-          className="rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2 text-sm text-zinc-300 hover:border-zinc-500 hover:bg-zinc-700"
+          className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm transition-all hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-700"
         >
           Compare with another run →
         </button>
       </div>
+    </div>
     </div>
   );
 }

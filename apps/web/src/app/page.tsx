@@ -448,7 +448,7 @@ export default function Home() {
   return (
     <>
       <NewRunModal open={modalOpen} onClose={() => setModalOpen(false)} />
-
+      <div className="page-gradient">
       <div className="mx-auto max-w-7xl px-4 py-8">
         {/* ── Hero header ─────────────────────────────────────────── */}
         <div className="animate-fade-in mb-8">
@@ -594,6 +594,7 @@ export default function Home() {
             Auto-refreshes every 10s
           </p>
         )}
+      </div>
       </div>
     </>
   );

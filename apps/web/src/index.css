@@ -41,6 +41,7 @@
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  min-height: 100vh;
 }
 
 /* ── Custom animations & utilities ──────────────────────────────────── */
@@ -104,6 +105,16 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-color: var(--glass-border);
+}
+
+/* Page gradient wrapper */
+.page-gradient {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 50%, #faf5ff 100%);
+}
+
+.dark .page-gradient {
+  background: #0a0a0a;
 }
 
 /* Smooth scrollbar */
