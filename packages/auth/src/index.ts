@@ -13,7 +13,12 @@ export function createAuth() {
 
       schema: schema,
     }),
-    trustedOrigins: [env.CORS_ORIGIN],
+    trustedOrigins: [
+      env.CORS_ORIGIN,
+      "http://localhost:3001",
+      "http://localhost:3000",
+    ],
+
     emailAndPassword: {
       enabled: true,
     },

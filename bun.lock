@@ -41,9 +41,11 @@
       "name": "web",
       "version": "0.1.0",
       "dependencies": {
+        "@better-fetch/fetch": "^1.1.15",
         "@tanstack/react-form": "^1.28.0",
         "@test-evals/auth": "workspace:*",
         "@test-evals/env": "workspace:*",
+        "@test-evals/shared": "workspace:*",
         "@test-evals/ui": "workspace:*",
         "babel-plugin-react-compiler": "^1.0.0",
         "better-auth": "catalog:",

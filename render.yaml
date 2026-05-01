@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: healosbench-server
+    runtime: node
+    buildCommand: "bun install && bun run build --filter=server"
+    startCommand: "bun run apps/server/src/index.ts"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: anthropic
+      - key: BETTER_AUTH_SECRET
+        sync: false
+      - key: BETTER_AUTH_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false

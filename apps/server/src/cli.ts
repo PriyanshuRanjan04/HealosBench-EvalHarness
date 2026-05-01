@@ -108,7 +108,7 @@ function printSummary(
   for (const key of fieldKeys) {
     const avg =
       completedResults.reduce((s, r) => {
-        const v = (r.scores as Record<string, number>)[key] ?? 0;
+        const v = (r.scores as unknown as Record<string, number>)[key] ?? 0;
         return s + v;
       }, 0) / n;
     fieldAvgs[key] = avg;

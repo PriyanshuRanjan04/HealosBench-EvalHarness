@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn } from "@/lib/auth-client";
+import { signUp } from "@/lib/auth-client";
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -18,15 +19,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const result = await signIn.email({ email, password });
+      const result = await signUp.email({ name, email, password });
       if (result.error) {
-        setError(result.error.message ?? "Sign in failed");
+        setError(result.error.message ?? "Sign up failed");
       } else {
         router.push("/");
         router.refresh();
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign in failed");
+      setError(err instanceof Error ? err.message : "Sign up failed");
     } finally {
       setLoading(false);
     }
@@ -36,17 +37,33 @@ export default function LoginPage() {
     <div className="flex min-h-[80vh] items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-zinc-100">Sign In</h1>
-          <p className="mt-1 text-sm text-zinc-500">to HealosBench Eval Harness</p>
+          <h1 className="text-2xl font-bold text-zinc-100">Create Account</h1>
+          <p className="mt-1 text-sm text-zinc-500">Join HealosBench Eval Harness</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="mb-1.5 block text-sm font-medium text-zinc-400">
+              Name
+            </label>
+            <input
+              id="signup-name"
+              type="text"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-blue-500 focus:outline-none"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-zinc-400">
               Email
             </label>
             <input
-              id="login-email"
+              id="signup-email"
               type="email"
               autoComplete="email"
               required
@@ -62,14 +79,15 @@ export default function LoginPage() {
               Password
             </label>
             <input
-              id="login-password"
+              id="signup-password"
               type="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               required
+              minLength={8}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-blue-500 focus:outline-none"
-              placeholder="••••••••"
+              placeholder="Min 8 characters"
             />
           </div>
 
@@ -80,19 +98,19 @@ export default function LoginPage() {
           )}
 
           <button
-            id="login-submit"
+            id="signup-submit"
             type="submit"
             disabled={loading}
             className="w-full rounded-lg bg-blue-600 py-2.5 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50"
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {loading ? "Creating account…" : "Create Account"}
           </button>
         </form>
 
         <p className="mt-5 text-center text-sm text-zinc-500">
-          Don&apos;t have an account?{" "}
-          <Link href="/signup" className="text-blue-400 hover:underline">
-            Sign up
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-400 hover:underline">
+            Sign in
           </Link>
         </p>
       </div>
