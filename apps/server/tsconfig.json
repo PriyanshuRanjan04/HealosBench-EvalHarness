@@ -4,9 +4,15 @@
     "composite": true,
     "outDir": "dist",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@test-evals/auth": ["../../packages/auth/src/index.ts"],
+      "@test-evals/db": ["../../packages/db/src/index.ts"],
+      "@test-evals/env/server": ["../../packages/env/src/server.ts"],
+      "@test-evals/llm": ["../../packages/llm/src/index.ts"],
+      "@test-evals/shared": ["../../packages/shared/src/index.ts"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   }
 }
+

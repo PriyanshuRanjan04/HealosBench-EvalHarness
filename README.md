@@ -173,20 +173,69 @@ Per run, store: per-case scores, per-field aggregates, hallucination count, sche
 # 1. Install
 bun install
 
-# 2. Configure
-echo "ANTHROPIC_API_KEY=sk-ant-..." > apps/server/.env
+# 2. Configure — copy the example and fill in your values
+cp apps/server/.env.example apps/server/.env
+# then edit apps/server/.env (see LLM Provider section below)
 
-# 3. Database (Postgres)
+# 3. Push database schema (requires DATABASE_URL to be set)
 bun run db:push
 
-# 4. Dev (web + server)
+# 4. Dev — starts both Hono server (:8787) and Next.js (:3000)
 bun run dev
 
-# 5. In another shell — CLI eval
-bun run eval -- --strategy=zero_shot
+# 5. In another shell — run a full CLI eval
+bun run eval --strategy zero_shot
+bun run eval --strategy few_shot
+bun run eval --strategy cot
 ```
 
-You'll need a Postgres instance running locally. Set `DATABASE_URL` in `apps/server/.env` (e.g. `postgres://postgres:postgres@localhost:5432/healosbench`).
+You'll need a Postgres instance (local or cloud). Set `DATABASE_URL` in `apps/server/.env`.
+
+---
+
+## LLM Provider
+
+The harness supports two providers, selected via `LLM_PROVIDER` in `apps/server/.env`.
+
+### Option A — Groq (free, for local dev & testing)
+
+Set `LLM_PROVIDER=groq` and add your Groq API key. Get a free key at <https://console.groq.com>.
+
+```env
+LLM_PROVIDER=groq
+GROQ_API_KEY=gsk_...
+```
+
+Groq uses **JSON mode** (`response_format: { type: "json_object" }`) because it does not support Anthropic-style tool use. Recommended models:
+- `llama-3.3-70b-versatile` — best quality
+- `mixtral-8x7b-32768` — faster, lower latency
+
+> **Note:** Groq has no prompt caching, so `cache_read_input_tokens` will always be 0 in Groq runs. This is expected and is accounted for in cost reporting.
+
+### Option B — Anthropic (required for assignment-compliant runs)
+
+Set `LLM_PROVIDER=anthropic` and add your Anthropic API key.
+
+```env
+LLM_PROVIDER=anthropic
+ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Anthropic uses **tool use** (`extract_clinical_data`) with `cache_control: { type: "ephemeral" }` on every system prompt block. This is the full production path:
+- Schema-enforced output via tool use (not regex on raw text)
+- Prompt caching active — `cache_read_input_tokens` increases on repeated runs
+- Full cache token accounting: input / output / cache_read / cache_write
+
+**Use `LLM_PROVIDER=anthropic` for all final submission runs.** The assignment requires prompt caching verification and tool-use-based schema enforcement, both of which require the Anthropic path.
+
+### Quick reference
+
+| | Groq | Anthropic |
+|---|---|---|
+| Cost | Free tier | ~$0.80/M input tokens (Haiku) |
+| Output enforcement | JSON mode | Tool use |
+| Prompt caching | ❌ | ✅ |
+| Good for | Dev / smoke tests | Final eval runs |
 
 ---
 

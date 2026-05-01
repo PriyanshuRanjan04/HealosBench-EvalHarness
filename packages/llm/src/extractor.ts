@@ -1,13 +1,31 @@
-import Anthropic from "@anthropic-ai/sdk";
-import Ajv from "ajv";
+/**
+ * extractor.ts
+ *
+ * Provider-agnostic extraction loop.
+ *
+ * Reads LLM_PROVIDER from env and instantiates the correct provider:
+ *   LLM_PROVIDER=anthropic  →  AnthropicProvider (tool use + prompt caching)
+ *   LLM_PROVIDER=groq       →  GroqProvider       (JSON mode, no caching)
+ *
+ * The retry loop, AJV validation, and public API are the same regardless
+ * of provider. runner.service.ts and callers need zero changes.
+ */
+
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+import type Anthropic from "@anthropic-ai/sdk";
+import Ajv2020 from "ajv/dist/2020";
 import addFormats from "ajv-formats";
 import { env } from "@test-evals/env/server";
 import type { ExtractionSchema } from "@test-evals/shared";
-import { EXTRACT_TOOL_NAME, extractClinicalDataTool } from "./tool.js";
 import type { IPromptStrategy } from "./types.js";
+import { AnthropicProvider } from "./providers/anthropic.js";
+import { GroqProvider } from "./providers/groq.js";
+import type { LLMProvider } from "./providers/types.js";
 
 // ---------------------------------------------------------------------------
-// AJV — compile once at module load for performance
+// AJV 2020-12 — compile once at module load
 // ---------------------------------------------------------------------------
 
 // ajv-formats v3 exports differ between CJS and ESM; handle both shapes
@@ -16,76 +34,21 @@ const _addFormats =
     ? addFormats
     : (addFormats as { default: typeof addFormats }).default;
 
-const ajv = new Ajv({ strict: false, allErrors: true });
+const ajv = new Ajv2020({ strict: false, allErrors: true });
 _addFormats(ajv);
 
-/**
- * The JSON Schema for ExtractionSchema — inlined from data/schema.json.
- * We inline the relevant subset here rather than importing the file so
- * the package stays self-contained. The tool.ts input_schema is the
- * authoritative definition; this schema validates tool output.
- */
-const extractionJsonSchema = {
-  $schema: "https://json-schema.org/draft/2020-12/schema",
-  type: "object",
-  additionalProperties: false,
-  required: ["chief_complaint", "vitals", "medications", "diagnoses", "plan", "follow_up"],
-  properties: {
-    chief_complaint: { type: "string", minLength: 1 },
-    vitals: {
-      type: "object",
-      additionalProperties: false,
-      required: ["bp", "hr", "temp_f", "spo2"],
-      properties: {
-        bp: { type: ["string", "null"], pattern: "^[0-9]{2,3}/[0-9]{2,3}$" },
-        hr: { type: ["integer", "null"], minimum: 20, maximum: 250 },
-        temp_f: { type: ["number", "null"], minimum: 90, maximum: 110 },
-        spo2: { type: ["integer", "null"], minimum: 50, maximum: 100 },
-      },
-    },
-    medications: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        required: ["name", "dose", "frequency", "route"],
-        properties: {
-          name: { type: "string", minLength: 1 },
-          dose: { type: ["string", "null"] },
-          frequency: { type: ["string", "null"] },
-          route: { type: ["string", "null"] },
-        },
-      },
-    },
-    diagnoses: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        required: ["description"],
-        properties: {
-          description: { type: "string", minLength: 1 },
-          icd10: { type: "string", pattern: "^[A-Z][0-9]{2}(\\.[0-9A-Z]{1,4})?$" },
-        },
-      },
-    },
-    plan: { type: "array", items: { type: "string", minLength: 1 } },
-    follow_up: {
-      type: "object",
-      additionalProperties: false,
-      required: ["interval_days", "reason"],
-      properties: {
-        interval_days: { type: ["integer", "null"], minimum: 0, maximum: 730 },
-        reason: { type: ["string", "null"] },
-      },
-    },
-  },
-};
+// Load schema from data/schema.json — single source of truth.
+// process.cwd() is the monorepo root when invoked via "bun run eval".
+// Strip $schema so AJV doesn't attempt to fetch/resolve the draft URI.
+const _rawSchema = JSON.parse(
+  readFileSync(resolve(process.cwd(), "data/schema.json"), "utf8"),
+) as Record<string, unknown>;
+const { $schema: _discarded, ...extractionJsonSchema } = _rawSchema;
 
 const validateExtraction = ajv.compile(extractionJsonSchema);
 
 // ---------------------------------------------------------------------------
-// Public types
+// Public types (unchanged — runner.service.ts depends on these)
 // ---------------------------------------------------------------------------
 
 export interface TokenUsage {
@@ -96,13 +59,10 @@ export interface TokenUsage {
 }
 
 export interface Attempt {
-  /** Full request params sent to the Anthropic API */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request: Record<string, any>;
-  /** Raw API response object */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   response: Record<string, any>;
-  /** AJV validation error messages, present only when validation failed */
   validationErrors?: string[];
   success: boolean;
 }
@@ -115,37 +75,45 @@ export interface ExtractResult {
 }
 
 // ---------------------------------------------------------------------------
-// Anthropic client — singleton, created lazily
+// Provider factory — reads LLM_PROVIDER once at module load
 // ---------------------------------------------------------------------------
 
-let _client: Anthropic | null = null;
-function getClient(): Anthropic {
-  if (!_client) {
-    _client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
+let _provider: LLMProvider | null = null;
+
+function getProvider(): LLMProvider {
+  if (!_provider) {
+    const providerName = env.LLM_PROVIDER ?? "anthropic";
+    if (providerName === "groq") {
+      console.log("[extractor] Using Groq provider (JSON mode)");
+      _provider = new GroqProvider();
+    } else {
+      console.log("[extractor] Using Anthropic provider (tool use + prompt caching)");
+      _provider = new AnthropicProvider();
+    }
   }
-  return _client;
+  return _provider;
 }
 
 // ---------------------------------------------------------------------------
-// Core extractor
+// Core extraction loop
 // ---------------------------------------------------------------------------
 
 const MAX_ATTEMPTS = 3;
 
 /**
- * Call the Anthropic API with the given strategy and transcript.
- * Retries up to MAX_ATTEMPTS times on validation failure, feeding errors
- * back as a user message to encourage self-correction.
+ * Extract clinical data from a transcript using the selected LLM provider.
+ * Retries up to MAX_ATTEMPTS times on validation failure.
+ *
+ * Public API is identical to the original — runner.service.ts is unaffected.
  */
 export async function extract(
   transcript: string,
   strategy: IPromptStrategy,
   model: string,
 ): Promise<ExtractResult> {
-  const client = getClient();
+  const provider = getProvider();
   const trace: Attempt[] = [];
 
-  // Accumulated token usage across all attempts
   const usage: TokenUsage = {
     inputTokens: 0,
     outputTokens: 0,
@@ -153,84 +121,68 @@ export async function extract(
     cacheWriteTokens: 0,
   };
 
-  // Build the initial message list from the strategy
+  // Build initial message list from strategy
   const messages: Anthropic.MessageParam[] = strategy.buildMessages(transcript);
-
   let prediction: ExtractionSchema | null = null;
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const requestParams: Anthropic.MessageCreateParams = {
+    // Snapshot messages before the call (for trace)
+    const requestSnapshot = {
+      provider: env.LLM_PROVIDER ?? "anthropic",
       model,
-      max_tokens: 4096,
-      system: strategy.systemPrompt(),
-      tools: [extractClinicalDataTool],
-      // Force the model to call our tool on every attempt
-      tool_choice: { type: "any" },
-      messages,
+      attempt,
+      messages: JSON.parse(JSON.stringify(messages)) as unknown,
     };
 
-    // Record what we're sending (deep clone to snapshot the message list)
-    const requestSnapshot = JSON.parse(JSON.stringify(requestParams)) as Record<string, unknown>;
+    let providerResponse: Awaited<ReturnType<LLMProvider["call"]>>;
 
-    let response: Anthropic.Message;
     try {
-      response = await client.messages.create(requestParams);
+      providerResponse = await provider.call(transcript, strategy, model, messages);
     } catch (err) {
-      // Network / API error — record and bail out entirely
-      const errRecord = {
-        request: requestSnapshot,
+      trace.push({
+        request: requestSnapshot as Record<string, unknown>,
         response: { error: String(err) },
         validationErrors: ["API error: " + String(err)],
         success: false,
-      };
-      trace.push(errRecord);
+      });
       break;
     }
 
-    // Accumulate token counts
-    const u = response.usage;
-    usage.inputTokens += u.input_tokens;
-    usage.outputTokens += u.output_tokens;
-    // These fields exist when prompt caching is active
-    usage.cacheReadTokens +=
-      (u as Anthropic.Usage & { cache_read_input_tokens?: number }).cache_read_input_tokens ?? 0;
-    usage.cacheWriteTokens +=
-      (u as Anthropic.Usage & { cache_creation_input_tokens?: number })
-        .cache_creation_input_tokens ?? 0;
+    // Accumulate token usage
+    usage.inputTokens += providerResponse.usage.inputTokens;
+    usage.outputTokens += providerResponse.usage.outputTokens;
+    usage.cacheReadTokens += providerResponse.usage.cacheReadTokens;
+    usage.cacheWriteTokens += providerResponse.usage.cacheWriteTokens;
 
-    const responseRecord = { ...response } as Record<string, unknown>;
-
-    // Find the tool_use block
-    const toolUseBlock = response.content.find(
-      (b): b is Anthropic.ToolUseBlock =>
-        b.type === "tool_use" && b.name === EXTRACT_TOOL_NAME,
-    );
-
-    if (!toolUseBlock) {
-      // Model responded without calling the tool — treat as failure
-      const attemptRecord: Attempt = {
-        request: requestSnapshot,
-        response: responseRecord,
-        validationErrors: ["Model did not call the extract_clinical_data tool."],
+    // ── Case 1: model didn't call the tool / didn't return valid JSON ─────────
+    if (!providerResponse.calledTool || providerResponse.toolInput === null) {
+      trace.push({
+        request: requestSnapshot as Record<string, unknown>,
+        response: providerResponse.rawResponse,
+        validationErrors: ["Model did not return a valid tool call or JSON object."],
         success: false,
-      };
-      trace.push(attemptRecord);
+      });
 
       if (attempt < MAX_ATTEMPTS) {
-        // Append the model's response turn and a correction request
-        messages.push({ role: "assistant", content: response.content });
+        // Append assistant response (as text) + correction request
         messages.push({
-          role: "user",
-          content:
-            "You did not call the extract_clinical_data tool. " +
-            "You MUST call it exactly once. Please try again.",
+          role: "assistant",
+          content: providerResponse.rawResponse.choices
+            ? // Groq: extract text content
+              (
+                (providerResponse.rawResponse.choices as Array<{ message?: { content?: string } }>)[0]
+                  ?.message?.content ?? ""
+              )
+            : // Anthropic: keep content blocks
+              (providerResponse.content as unknown as string),
         });
+        messages.push(provider.buildMissingToolMessage());
       }
       continue;
     }
 
-    // Validate the tool input against the JSON Schema
-    const toolInput = toolUseBlock.input;
+    // ── Case 2: validate the extracted object ─────────────────────────────────
+    const toolInput = providerResponse.toolInput;
     const valid = validateExtraction(toolInput);
 
     if (!valid) {
@@ -238,41 +190,39 @@ export async function extract(
         (e) => `${e.instancePath || "/"} ${e.message ?? "unknown error"}`,
       );
 
-      const attemptRecord: Attempt = {
-        request: requestSnapshot,
-        response: responseRecord,
+      trace.push({
+        request: requestSnapshot as Record<string, unknown>,
+        response: providerResponse.rawResponse,
         validationErrors: errors,
         success: false,
-      };
-      trace.push(attemptRecord);
+      });
 
       if (attempt < MAX_ATTEMPTS) {
-        const errorSummary = errors.join("\n- ");
-        // Feed the tool result back as a tool_result and add a correction request
-        messages.push({ role: "assistant", content: response.content });
-        messages.push({
-          role: "user",
-          content: [
-            {
-              type: "tool_result",
-              tool_use_id: toolUseBlock.id,
-              content:
-                "Validation failed. Errors:\n- " +
-                errorSummary +
-                "\n\nPlease call extract_clinical_data again with corrected values.",
-              is_error: true,
-            },
-          ],
-        });
+        // For Anthropic: append assistant content blocks + tool_result correction
+        // For Groq: append the raw text + plain user correction
+        if (providerResponse.toolUseId) {
+          // Anthropic path — content is blocks
+          messages.push({ role: "assistant", content: providerResponse.content });
+          messages.push(
+            provider.buildValidationErrorMessage(providerResponse.toolUseId, errors),
+          );
+        } else {
+          // Groq path — content is a string
+          const rawText =
+            (providerResponse.rawResponse.choices as Array<{ message?: { content?: string } }>)[0]
+              ?.message?.content ?? "";
+          messages.push({ role: "assistant", content: rawText });
+          messages.push(provider.buildValidationErrorMessage("", errors));
+        }
       }
       continue;
     }
 
-    // Success
+    // ── Case 3: success ───────────────────────────────────────────────────────
     prediction = toolInput as unknown as ExtractionSchema;
     trace.push({
-      request: requestSnapshot,
-      response: responseRecord,
+      request: requestSnapshot as Record<string, unknown>,
+      response: providerResponse.rawResponse,
       success: true,
     });
     break;

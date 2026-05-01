@@ -9,7 +9,12 @@ export const env = createEnv({
     BETTER_AUTH_URL: z.url(),
     CORS_ORIGIN: z.url(),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-    ANTHROPIC_API_KEY: z.string().min(1),
+    // LLM provider selection — defaults to anthropic for full assignment compliance
+    LLM_PROVIDER: z.enum(["anthropic", "groq"]).default("anthropic"),
+    // Anthropic — required when LLM_PROVIDER=anthropic
+    ANTHROPIC_API_KEY: z.string().optional(),
+    // Groq — required when LLM_PROVIDER=groq
+    GROQ_API_KEY: z.string().optional(),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

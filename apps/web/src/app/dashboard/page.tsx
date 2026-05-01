@@ -1,27 +1,11 @@
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import RunsDashboard from "./dashboard";
 
-import { authClient } from "@/lib/auth-client";
+export const metadata: Metadata = {
+  title: "Eval Runs — HealosBench",
+  description: "HealosBench evaluation run history and comparison",
+};
 
-import Dashboard from "./dashboard";
-
-export default async function DashboardPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-      throw: true,
-    },
-  });
-
-  if (!session?.user) {
-    redirect("/login");
-  }
-
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome {session.user.name}</p>
-      <Dashboard session={session} />
-    </div>
-  );
+export default function DashboardPage() {
+  return <RunsDashboard />;
 }

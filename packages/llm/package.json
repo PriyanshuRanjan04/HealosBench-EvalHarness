@@ -13,7 +13,8 @@
     "@test-evals/env": "workspace:*",
     "@test-evals/shared": "workspace:*",
     "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1"
+    "ajv-formats": "^3.0.1",
+    "groq-sdk": "latest"
   },
   "devDependencies": {
     "@test-evals/config": "workspace:*",
