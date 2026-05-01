@@ -1,5 +1,48 @@
 @import "@test-evals/ui/globals.css";
 
+/* ── Theme variables ────────────────────────────────────────────────── */
+
+:root {
+  --bg-primary: #f0f4f8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --border-primary: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --shimmer-a: #e2e8f0;
+  --shimmer-b: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-hover: #94a3b8;
+}
+
+.dark {
+  --bg-primary: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #191919;
+  --border-primary: #222222;
+  --border-subtle: rgba(255, 255, 255, 0.03);
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --text-faint: #475569;
+  --glass-bg: rgba(10, 10, 10, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --shimmer-a: #1a1a2e;
+  --shimmer-b: #222244;
+  --scrollbar-thumb: #333;
+  --scrollbar-hover: #555;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
 /* ── Custom animations & utilities ──────────────────────────────────── */
 
 @keyframes shimmer {
@@ -23,7 +66,7 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, #1a1a2e 25%, #222244 50%, #1a1a2e 75%);
+  background: linear-gradient(90deg, var(--shimmer-a) 25%, var(--shimmer-b) 50%, var(--shimmer-a) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
@@ -55,14 +98,15 @@
   background-clip: text;
 }
 
-/* Glass effect */
+/* Glass effect — responds to theme */
 .glass {
-  background: rgba(10, 10, 10, 0.75);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  border-color: var(--glass-border);
 }
 
-/* Smooth scrollbar for dark theme */
+/* Smooth scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -71,9 +115,20 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--scrollbar-hover);
+}
+
+/* ── Theme-aware utility classes ────────────────────────────────────── */
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+}
+
+.card-hover:hover {
+  background: var(--bg-card-hover);
 }

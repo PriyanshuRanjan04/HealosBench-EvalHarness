@@ -90,9 +90,9 @@ function fmtDate(d: Date | string) {
 
 function TableSkeleton() {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/[0.06] bg-[#111111]">
+    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-white/[0.06] dark:bg-[#111]">
       {/* Skeleton header */}
-      <div className="border-b border-white/[0.06] px-4 py-3">
+      <div className="border-b border-slate-200 px-4 py-3 dark:border-white/[0.06]">
         <div className="flex gap-8">
           {[80, 120, 60, 100, 50, 60, 40, 70].map((w, i) => (
             <div
@@ -107,7 +107,7 @@ function TableSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-8 border-b border-white/[0.03] px-4 py-4"
+          className="flex items-center gap-8 border-b border-slate-100 px-4 py-4 dark:border-white/[0.03]"
           style={{ animationDelay: `${i * 100}ms` }}
         >
           <div className="animate-shimmer h-5 w-20 rounded-full" />
@@ -128,11 +128,11 @@ function TableSkeleton() {
 
 function EmptyState({ onNewRun }: { onNewRun: () => void }) {
   return (
-    <div className="animate-fade-in flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/[0.08] bg-[#111111]/50 py-20">
+    <div className="animate-fade-in flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/50 py-20 dark:border-white/[0.08] dark:bg-[#111]/50">
       <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 shadow-lg shadow-blue-500/10">
         <FlaskConical className="h-8 w-8 text-blue-400" />
       </div>
-      <h3 className="mb-1 text-lg font-semibold text-slate-200">
+      <h3 className="mb-1 text-lg font-semibold text-slate-800 dark:text-slate-200">
         No eval runs yet
       </h3>
       <p className="mb-6 text-sm text-slate-500">
@@ -163,8 +163,8 @@ function StatCard({
   accent?: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-[#111111] px-4 py-3">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
+    <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm dark:border-white/[0.06] dark:bg-[#111] dark:shadow-none">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/[0.04]">
         <Icon className={`h-4 w-4 ${accent ?? "text-slate-400"}`} />
       </div>
       <div>
@@ -233,7 +233,7 @@ function NewRunModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="animate-scale-in w-full max-w-lg rounded-2xl border border-white/[0.08] bg-[#111111] p-6 shadow-2xl shadow-black/50">
+      <div className="animate-scale-in w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-white/[0.08] dark:bg-[#111]">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -241,7 +241,7 @@ function NewRunModal({
               <FlaskConical className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-slate-100">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                 New Eval Run
               </h2>
               <p className="text-xs text-slate-500">
@@ -251,7 +251,7 @@ function NewRunModal({
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-white/[0.06] hover:text-slate-300"
+            className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:text-slate-500 dark:hover:bg-white/[0.06] dark:hover:text-slate-300"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
@@ -277,7 +277,7 @@ function NewRunModal({
                     className={`group relative flex flex-col items-center gap-2 rounded-xl border p-3 text-center transition-all ${
                       isActive
                         ? "border-blue-500/50 bg-blue-500/10 shadow-sm shadow-blue-500/10"
-                        : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
+                        : "border-slate-200 bg-slate-50 hover:border-slate-300 hover:bg-slate-100 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
                     }`}
                   >
                     <Icon
@@ -287,7 +287,7 @@ function NewRunModal({
                     />
                     <span
                       className={`text-xs font-semibold ${
-                        isActive ? "text-blue-300" : "text-slate-300"
+                        isActive ? "text-blue-600 dark:text-blue-300" : "text-slate-700 dark:text-slate-300"
                       }`}
                     >
                       {meta.label}
@@ -317,7 +317,7 @@ function NewRunModal({
                     className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left transition-all ${
                       isActive
                         ? "border-blue-500/50 bg-blue-500/10"
-                        : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
+                        : "border-slate-200 bg-slate-50 hover:border-slate-300 hover:bg-slate-100 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-white/[0.12] dark:hover:bg-white/[0.04]"
                     }`}
                   >
                     {/* Radio circle */}
@@ -334,7 +334,7 @@ function NewRunModal({
                     </div>
                     {/* Info */}
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-slate-200">
+                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
                         {m.label}
                       </p>
                       <p className="text-xs text-slate-500">{m.provider}</p>
@@ -364,7 +364,7 @@ function NewRunModal({
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               placeholder="case_001, case_002, …"
-              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 transition-colors focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/20"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/20 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-slate-100 dark:placeholder-slate-600"
             />
           </div>
 
@@ -379,7 +379,7 @@ function NewRunModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 text-sm font-medium text-slate-400 transition-all hover:bg-white/[0.06] hover:text-slate-300"
+              className="flex-1 rounded-xl border border-slate-200 bg-slate-50 py-2.5 text-sm font-medium text-slate-500 transition-all hover:bg-slate-100 hover:text-slate-700 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-slate-300"
             >
               Cancel
             </button>
@@ -505,7 +505,7 @@ export default function Home() {
 
         {/* ── Hint ────────────────────────────────────────────────── */}
         {runs.length >= 2 && (
-          <p className="mb-4 rounded-lg border border-white/[0.04] bg-white/[0.02] px-4 py-2.5 text-xs text-slate-500">
+          <p className="mb-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs text-slate-500 dark:border-white/[0.04] dark:bg-white/[0.02]">
             💡 <strong className="text-slate-400">Tip:</strong> Select two runs
             and go to{" "}
             <span className="font-mono text-slate-400">
@@ -521,9 +521,9 @@ export default function Home() {
         ) : runs.length === 0 ? (
           <EmptyState onNewRun={() => setModalOpen(true)} />
         ) : (
-          <div className="animate-fade-in overflow-x-auto rounded-xl border border-white/[0.06] bg-[#111111]">
+          <div className="animate-fade-in overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm dark:border-white/[0.06] dark:bg-[#111] dark:shadow-none">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 z-10 border-b border-white/[0.06] bg-[#111111]">
+              <thead className="sticky top-0 z-10 border-b border-slate-200 bg-slate-50 dark:border-white/[0.06] dark:bg-[#111]">
                 <tr className="text-left text-xs font-medium uppercase tracking-wider text-slate-500">
                   <th className="px-4 py-3.5">Strategy</th>
                   <th className="px-4 py-3.5">Model</th>
@@ -540,8 +540,8 @@ export default function Home() {
                   <tr
                     key={run.id}
                     onClick={() => router.push(`/runs/${run.id}`)}
-                    className={`cursor-pointer border-b border-white/[0.03] transition-all hover:bg-white/[0.04] ${
-                      i % 2 === 1 ? "bg-white/[0.01]" : ""
+                    className={`cursor-pointer border-b border-slate-100 transition-all hover:bg-slate-50 dark:border-white/[0.03] dark:hover:bg-white/[0.04] ${
+                      i % 2 === 1 ? "bg-slate-50/50 dark:bg-white/[0.01]" : ""
                     }`}
                   >
                     {/* Strategy chip */}
@@ -574,8 +574,8 @@ export default function Home() {
                     </td>
                     {/* Cases */}
                     <td className="px-4 py-3.5 text-xs tabular-nums text-slate-400">
-                      <span className="text-slate-200">{run.completedCases}</span>
-                      <span className="text-slate-600">/{run.totalCases}</span>
+                      <span className="text-slate-800 dark:text-slate-200">{run.completedCases}</span>
+                      <span className="text-slate-400 dark:text-slate-600">/{run.totalCases}</span>
                     </td>
                     {/* Created */}
                     <td className="px-4 py-3.5 text-xs text-slate-500">

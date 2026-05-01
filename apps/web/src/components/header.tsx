@@ -14,7 +14,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="glass sticky top-0 z-40 border-b border-white/[0.06]">
+    <header className="glass sticky top-0 z-40 border-b">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5">
         {/* Logo */}
         <Link
@@ -40,8 +40,8 @@ export default function Header() {
                 href={href}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all ${
                   isActive
-                    ? "bg-white/[0.08] text-white shadow-sm"
-                    : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
+                    ? "bg-black/[0.06] text-slate-900 shadow-sm dark:bg-white/[0.08] dark:text-white"
+                    : "text-slate-500 hover:bg-black/[0.04] hover:text-slate-700 dark:text-slate-400 dark:hover:bg-white/[0.04] dark:hover:text-slate-200"
                 }`}
               >
                 <Icon className="h-3.5 w-3.5" />
@@ -52,7 +52,7 @@ export default function Header() {
         </nav>
 
         {/* Right: theme toggle + user */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <ModeToggle />
           <UserMenu />
         </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Brain, UserPlus } from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 
 export default function SignupPage() {
@@ -33,66 +34,39 @@ export default function SignupPage() {
     }
   }
 
+  const inputClass =
+    "w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/20 dark:border-[#333] dark:bg-[#0a0a0a] dark:text-slate-100 dark:placeholder-slate-600";
+
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-zinc-100">Create Account</h1>
-          <p className="mt-1 text-sm text-zinc-500">Join HealosBench Eval Harness</p>
+        <div className="mb-8 flex flex-col items-center text-center">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/20">
+            <Brain className="h-6 w-6 text-white" />
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Create Account</h1>
+          <p className="mt-1 text-sm text-slate-500">Join HealosBench Eval Harness</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#222] dark:bg-[#111]"
+        >
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-400">
-              Name
-            </label>
-            <input
-              id="signup-name"
-              type="text"
-              autoComplete="name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-blue-500 focus:outline-none"
-              placeholder="Your name"
-            />
+            <label className="mb-1.5 block text-sm font-medium text-slate-600 dark:text-slate-400">Name</label>
+            <input id="signup-name" type="text" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Your name" />
           </div>
-
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-400">
-              Email
-            </label>
-            <input
-              id="signup-email"
-              type="email"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-blue-500 focus:outline-none"
-              placeholder="you@example.com"
-            />
+            <label className="mb-1.5 block text-sm font-medium text-slate-600 dark:text-slate-400">Email</label>
+            <input id="signup-email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} placeholder="you@example.com" />
           </div>
-
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-400">
-              Password
-            </label>
-            <input
-              id="signup-password"
-              type="password"
-              autoComplete="new-password"
-              required
-              minLength={8}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-blue-500 focus:outline-none"
-              placeholder="Min 8 characters"
-            />
+            <label className="mb-1.5 block text-sm font-medium text-slate-600 dark:text-slate-400">Password</label>
+            <input id="signup-password" type="password" autoComplete="new-password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} placeholder="Min 8 characters" />
           </div>
 
           {error && (
-            <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-400">
+            <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
               {error}
             </p>
           )}
@@ -101,15 +75,25 @@ export default function SignupPage() {
             id="signup-submit"
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-blue-600 py-2.5 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:shadow-blue-500/40 hover:brightness-110 disabled:opacity-50"
           >
-            {loading ? "Creating account…" : "Create Account"}
+            {loading ? (
+              <>
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                Creating account…
+              </>
+            ) : (
+              <>
+                <UserPlus className="h-4 w-4" />
+                Create Account
+              </>
+            )}
           </button>
         </form>
 
-        <p className="mt-5 text-center text-sm text-zinc-500">
+        <p className="mt-5 text-center text-sm text-slate-500">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-400 hover:underline">
+          <Link href="/login" className="font-medium text-blue-500 hover:underline">
             Sign in
           </Link>
         </p>

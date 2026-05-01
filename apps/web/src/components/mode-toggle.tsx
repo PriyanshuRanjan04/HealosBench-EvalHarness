@@ -8,12 +8,11 @@ export function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch — only render after mount
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
     return (
-      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.04]">
+      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/[0.04]">
         <div className="h-4 w-4" />
       </div>
     );
@@ -24,7 +23,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.04] text-slate-400 transition-all hover:bg-white/[0.08] hover:text-slate-200 dark:bg-white/[0.04] dark:hover:bg-white/[0.08]"
+      className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition-all hover:bg-slate-200 hover:text-slate-700 dark:bg-white/[0.04] dark:text-slate-400 dark:hover:bg-white/[0.08] dark:hover:text-slate-200"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
       {isDark ? (

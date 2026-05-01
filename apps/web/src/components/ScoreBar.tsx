@@ -37,7 +37,7 @@ export default function ScoreBar({
 
   return (
     <div className="flex items-center gap-2">
-      <div className={`h-2 w-24 overflow-hidden rounded-full bg-white/[0.04] ${glowColor ? `shadow-sm ${glowColor}` : ""}`}>
+      <div className={`h-2 w-24 overflow-hidden rounded-full bg-slate-200 dark:bg-white/[0.04] ${glowColor ? `shadow-sm ${glowColor}` : ""}`}>
         <div
           className={`h-full rounded-full bg-gradient-to-r ${barColor} transition-all duration-500`}
           style={{ width: `${pct}%` }}
