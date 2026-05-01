@@ -43,10 +43,11 @@ function repoRoot(...segments: string[]): string {
 const VALID_STRATEGIES: PromptStrategy[] = ["zero_shot", "few_shot", "cot"];
 const DEFAULT_MODEL = "claude-haiku-4-5-20251001";
 
-function parseArgs(): { strategy: PromptStrategy; model: string } {
+function parseArgs(): { strategy: PromptStrategy; model: string; filter?: string[] } {
   const args = process.argv.slice(2);
   let strategy: PromptStrategy = "zero_shot";
   let model = DEFAULT_MODEL;
+  let filter: string[] | undefined;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--strategy" && args[i + 1]) {
@@ -62,10 +63,16 @@ function parseArgs(): { strategy: PromptStrategy; model: string } {
     } else if (args[i] === "--model" && args[i + 1]) {
       model = args[i + 1]!;
       i++;
+    } else if (args[i] === "--filter" && args[i + 1]) {
+      filter = args[i + 1]!
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      i++;
     }
   }
 
-  return { strategy, model };
+  return { strategy, model, filter };
 }
 
 // ─── Progress tracking ───────────────────────────────────────────────────────
@@ -185,11 +192,14 @@ function saveResults(
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main(): Promise<void> {
-  const { strategy, model } = parseArgs();
+  const { strategy, model, filter } = parseArgs();
 
   console.log(`\nHealosBench CLI`);
   console.log(`  strategy : ${strategy}`);
   console.log(`  model    : ${model}`);
+  if (filter) {
+    console.log(`  filter   : ${filter.join(", ")} (${filter.length} case${filter.length !== 1 ? "s" : ""})`);
+  }
   console.log(`  starting run…\n`);
 
   const startMs = Date.now();
@@ -199,6 +209,7 @@ async function main(): Promise<void> {
     runId = await startRun({
       strategy,
       model,
+      datasetFilter: filter,
       onProgress,
     });
   } catch (err) {

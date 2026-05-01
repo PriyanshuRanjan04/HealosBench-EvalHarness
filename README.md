@@ -194,13 +194,19 @@ Each field uses a metric matched to the structure of that field:
 
 ## 📈 Results
 
-| Strategy | Model | Overall F1 | Chief Complaint | Vitals | Medications F1 | Diagnoses F1 | Plan F1 | Follow-up | Cost | Cache Hit |
-|---|---|---|---|---|---|---|---|---|---|---|
-| `zero_shot` | claude-haiku-4-5 | — | — | — | — | — | — | — | — | — |
-| `few_shot` | claude-haiku-4-5 | — | — | — | — | — | — | — | — | — |
-| `cot` | claude-haiku-4-5 | — | — | — | — | — | — | — | — | — |
+> ⚠️ **All three result files in `results/` are pre-fix runs.** They were recorded before the AJV draft-2020-12 fix was applied. Every case returned `prediction: null` (the extractor crashed at module load before any LLM call was made), so all scores, costs, and token counts are zero. **These numbers reflect the bug, not the model.** Re-run all three strategies after the fix to get real scores.
+>
+> To re-run: `bun run eval --strategy zero_shot && bun run eval --strategy few_shot && bun run eval --strategy cot`
 
-> Fill these in after running `bun run eval` for all three strategies. See `NOTES.md` for analysis.
+| Strategy | Model | Cases | Overall F1 | Chief Complaint | Vitals | Meds F1 | Diagnoses F1 | Plan F1 | Follow-up | Cost | Cache Hit | Schema Valid |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `zero_shot` ¹ | claude-haiku-4-5 | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+| `few_shot` ¹ | claude-haiku-4-5 | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+| `cot` ¹ | claude-haiku-4-5 | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+
+¹ Pre-AJV-fix run — extractor crashed before calling the LLM. Re-run required.
+
+See `NOTES.md` for full analysis and the root cause explanation.
 
 ---
 

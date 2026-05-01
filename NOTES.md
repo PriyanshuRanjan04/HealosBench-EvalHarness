@@ -4,18 +4,58 @@
 
 ### Strategy Comparison Table
 
-> **Status:** One zero_shot run has completed (pre-AJV fix). `few_shot` and `cot` runs pending after API key configuration.
+All three result files in `results/` were produced on 2026-05-01 between 09:01–09:05 UTC, **before the AJV draft-2020-12 fix was applied**. Every case across all three strategies returned `prediction: null` with zero tokens consumed. The table below reflects the actual file contents — the zeros are real, but they measure a bug, not the models.
 
-| Strategy | Model | Cases | Overall F1 | Meds F1 | Diag F1 | Plan F1 | Cost | Cache Hit | Schema Valid |
-|---|---|---|---|---|---|---|---|---|---|
-| `zero_shot` (pre-fix) | llama-3.3-70b (Groq) | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | $0.00 | 0% | 0/50 |
-| `zero_shot` | claude-haiku-4-5 | _pending_ | — | — | — | — | — | — | — |
-| `few_shot` | claude-haiku-4-5 | _pending_ | — | — | — | — | — | — | — |
-| `cot` | claude-haiku-4-5 | _pending_ | — | — | — | — | — | — | — |
-
-The first run (`zero_shot`, Groq, 2026-05-01T08:08:23Z, run ID `1ba05fcf`) completed structurally — all 50 cases processed, no crashes — but produced `prediction: null` for every case with zero token counts. This was a known-broken run caused by the AJV draft-2020-12 schema error documented below.
+| Strategy | Run ID (prefix) | Model | Timestamp | Cases | Overall F1 | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | FU | Cost | Cache Hit | Schema Valid |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `zero_shot` | `c4a2…` | claude-haiku-4-5 | 09:01 UTC | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+| `few_shot` | `f9e7…` | claude-haiku-4-5 | 09:04 UTC | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+| `cot` | `e90f…` | claude-haiku-4-5 | 09:05 UTC | 09:05 UTC | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
 
 ---
+
+### Analysis of Actual Results
+
+#### Which strategy "won" — and why the answer is: none, identically
+
+All three strategies produced identical results: 0.000 across every field, $0.00 cost, 0% cache hit, 50/50 schema failures. This uniformity is itself diagnostic — it proves the failure was in the shared extraction infrastructure (AJV validation crashing at module load), not in any strategy-specific prompt logic. No LLM call was made for any of the 150 cases. The `wallTimeMs` values (74–150ms per case) confirm this: they reflect filesystem read time and the crash, not network latency.
+
+#### What the schema failure rate tells us
+
+50/50 schema failures per strategy (150/150 total) is the smoking gun. When `schemaValid=false` and `tokensInput=0` on the same case, it means the extractor threw before `extract()` was ever called. A partial failure rate (e.g. 12/50) would suggest intermittent LLM or network issues. 100% failure with 0 tokens consumed means the error was at module initialisation — which is exactly what the AJV `$schema` bug produces: `ajv.compile()` throws synchronously, the module fails to load, and every call returns null.
+
+#### What the zero cost and zero cache hit tell us
+
+Total cost across 150 cases: $0.00. No Anthropic API calls were made. The cache hit rate of 0% is not meaningful here — you need at least one successful LLM call before Anthropic can write a cache entry. Once re-run with the fix, we'd expect:
+- **zero_shot**: cache hit rate ~94–98% (first case writes cache, remaining 49 read it)
+- **few_shot**: similar rate, but the cache write costs more (larger system prompt with examples)
+- **cot**: similar rate to zero_shot on the system prompt; CoT reasoning tokens are not cached
+
+#### What the hallucination count tells us
+
+0 hallucinations across all strategies — but this is vacuously true. `detectHallucinations()` only runs when `prediction !== null`. With 100% null predictions, there's nothing to check. Expect non-zero hallucination counts after the fix, particularly on `vitals` (models sometimes invent numeric values not stated in the transcript) and `diagnoses[].icd10` (models confabulate codes).
+
+#### What a post-fix re-run should show
+
+Based on the prompt designs:
+
+- **zero_shot** should establish the baseline. Expect reasonable chief_complaint and vitals scores (these are short, well-structured fields) but lower medications and plan F1 (more items to track, easier to miss one).
+- **few_shot** should improve medications F1 specifically — the two examples demonstrate complete medication entries with dose, frequency, and route, which is where zero_shot tends to underspecify.
+- **cot** should show the highest diagnoses and plan F1 — the section-by-section scaffold explicitly enumerates both fields, reducing omissions on complex cases. The tradeoff is higher output token cost (reasoning tokens before the tool call).
+
+#### To get real numbers
+
+```bash
+# From the monorepo root, with ANTHROPIC_API_KEY set in apps/server/.env:
+bun run eval --strategy zero_shot
+bun run eval --strategy few_shot
+bun run eval --strategy cot
+```
+
+New result files will be written to `results/` with fresh timestamps. Update this table with the numbers from those files.
+
+---
+
 
 ## What Surprised Me
 
@@ -33,9 +73,22 @@ Groq's `llama-3.3-70b-versatile` in JSON mode (`response_format: { type: "json_o
 - It sometimes returns a JSON wrapper object (e.g. `{ "extraction": { ... } }`) instead of the flat schema-conforming object, causing AJV validation to fail on the first try and trigger a retry.
 - The retry feedback loop (sending validation errors back as a user message) works — the model self-corrects on attempt 2 roughly 80% of the time in smoke tests — but adds ~1.5s wall time per retry.
 
-### 3. `process.cwd()` is the right anchor for schema loading, not `import.meta.url`
+### 3. `import.meta.url`, not `process.cwd()`, is the right anchor for schema loading
 
-Using `resolve(fileURLToPath(new URL(".", import.meta.url)), "../../../../data/schema.json")` broke on Windows because the depth traversal landed outside the project directory when run from certain shells. `resolve(process.cwd(), "data/schema.json")` is reliable as long as all eval invocations use `bun run eval` from the repo root — which is enforced by the root `package.json` script.
+The first attempt used `resolve(process.cwd(), "data/schema.json")`. This worked under `bun run eval` (cwd = monorepo root) but broke silently under `bun run dev`, where Turborepo sets cwd to `apps/server/` — so the path resolved to `apps/server/data/schema.json`, which doesn't exist, crashing the module on first import.
+
+The fix: anchor the path to the source file itself using `import.meta.url`:
+
+```ts
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const SCHEMA_PATH = resolve(__dirname, "../../../data/schema.json");
+// packages/llm/src/ → ../../.. → monorepo root → data/schema.json ✓
+```
+
+`import.meta.url` is always the file's own URL on disk, regardless of how Bun was invoked or what the cwd is. The same pattern is used in `runner.service.ts` (4 levels up from `apps/server/src/services/`) and `cli.ts` (3 levels up from `apps/server/src/`).
+
+**Lesson:** Never use `process.cwd()` to locate files that are part of the repo. Use `import.meta.url`. Reserve `process.cwd()` only for user-supplied paths (e.g. a config file path passed as a CLI arg).
 
 ### 4. SSE and Hono play well together but need careful cleanup
 

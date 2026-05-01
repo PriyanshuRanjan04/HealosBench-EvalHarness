@@ -12,7 +12,8 @@
  */
 
 import { readFileSync } from "fs";
-import { resolve } from "path";
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 
 import type Anthropic from "@anthropic-ai/sdk";
 import Ajv2020 from "ajv/dist/2020";
@@ -37,15 +38,33 @@ const _addFormats =
 const ajv = new Ajv2020({ strict: false, allErrors: true });
 _addFormats(ajv);
 
-// Load schema from data/schema.json — single source of truth.
-// process.cwd() is the monorepo root when invoked via "bun run eval".
+// ---------------------------------------------------------------------------
+// Schema path — resolved relative to THIS file, not cwd.
+//
+// This file: packages/llm/src/extractor.ts
+//   ../        → packages/llm/
+//   ../../     → packages/
+//   ../../../  → <monorepo root>
+//   ../../../data/schema.json ✓
+//
+// Works in ALL invocation contexts:
+//   bun run eval  (cwd = monorepo root)
+//   bun run dev   (cwd = apps/server/ — would break process.cwd())
+//   any IDE / test runner
+// ---------------------------------------------------------------------------
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const SCHEMA_PATH = resolve(__dirname, "../../../data/schema.json");
+
 // Strip $schema so AJV doesn't attempt to fetch/resolve the draft URI.
 const _rawSchema = JSON.parse(
-  readFileSync(resolve(process.cwd(), "data/schema.json"), "utf8"),
+  readFileSync(SCHEMA_PATH, "utf8"),
 ) as Record<string, unknown>;
 const { $schema: _discarded, ...extractionJsonSchema } = _rawSchema;
 
 const validateExtraction = ajv.compile(extractionJsonSchema);
+
 
 // ---------------------------------------------------------------------------
 // Public types (unchanged — runner.service.ts depends on these)
