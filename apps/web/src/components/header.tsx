@@ -1,43 +1,50 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Brain, BarChart3, GitCompare } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import UserMenu from "./user-menu";
 
 const NAV_LINKS = [
-  { href: "/",              label: "Runs" },
-  { href: "/runs/compare",  label: "Compare Runs" },
+  { href: "/",              label: "Runs",    icon: BarChart3 },
+  { href: "/runs/compare",  label: "Compare", icon: GitCompare },
 ] as const;
 
 export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
+    <header className="glass sticky top-0 z-40 border-b border-white/[0.06]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5">
         {/* Logo */}
         <Link
           href="/"
-          className="font-mono text-sm font-bold tracking-widest text-zinc-100 hover:text-blue-400"
+          className="group flex items-center gap-2 transition-opacity hover:opacity-80"
         >
-          HEALOSBENCH
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/20">
+            <Brain className="h-4 w-4 text-white" />
+          </div>
+          <span className="text-gradient-brand text-sm font-bold tracking-widest">
+            HEALOSBENCH
+          </span>
         </Link>
 
         {/* Nav */}
-        <nav className="flex items-center gap-1">
-          {NAV_LINKS.map(({ href, label }) => {
+        <nav className="flex items-center gap-0.5">
+          {NAV_LINKS.map(({ href, label, icon: Icon }) => {
             const isActive =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
               <Link
                 key={href}
                 href={href}
-                className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all ${
                   isActive
-                    ? "bg-zinc-800 text-zinc-100"
-                    : "text-zinc-400 hover:bg-zinc-800/60 hover:text-zinc-100"
+                    ? "bg-white/[0.08] text-white shadow-sm"
+                    : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
                 }`}
               >
+                <Icon className="h-3.5 w-3.5" />
                 {label}
               </Link>
             );
@@ -53,4 +60,3 @@ export default function Header() {
     </header>
   );
 }
-

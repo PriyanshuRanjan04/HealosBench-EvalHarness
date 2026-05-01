@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "test-evals",
-  description: "test-evals",
+  title: "HealosBench — LLM Eval Dashboard",
+  description: "Track and compare LLM prompt strategies for clinical extraction benchmarks",
 };
 
 export default function RootLayout({
