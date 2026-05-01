@@ -503,17 +503,6 @@ export default function Home() {
           )}
         </div>
 
-        {/* ── Hint ────────────────────────────────────────────────── */}
-        {runs.length >= 2 && (
-          <p className="mb-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs text-slate-500 dark:border-white/[0.04] dark:bg-white/[0.02]">
-            💡 <strong className="text-slate-400">Tip:</strong> Select two runs
-            and go to{" "}
-            <span className="font-mono text-slate-400">
-              /runs/compare?a=ID&amp;b=ID
-            </span>{" "}
-            to compare them side-by-side
-          </p>
-        )}
 
         {/* ── Content ─────────────────────────────────────────────── */}
         {loading ? (
@@ -521,9 +510,9 @@ export default function Home() {
         ) : runs.length === 0 ? (
           <EmptyState onNewRun={() => setModalOpen(true)} />
         ) : (
-          <div className="animate-fade-in overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm dark:border-white/[0.06] dark:bg-[#111] dark:shadow-none">
+          <div className="animate-fade-in overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-lg dark:border-[#222] dark:bg-[#111] dark:shadow-none">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 z-10 border-b border-slate-200 bg-slate-50 dark:border-white/[0.06] dark:bg-[#111]">
+              <thead className="sticky top-0 z-10 border-b border-gray-200 bg-gray-50 dark:border-[#222] dark:bg-[#161616]">
                 <tr className="text-left text-xs font-medium uppercase tracking-wider text-slate-500">
                   <th className="px-4 py-3.5">Strategy</th>
                   <th className="px-4 py-3.5">Model</th>
@@ -540,8 +529,8 @@ export default function Home() {
                   <tr
                     key={run.id}
                     onClick={() => router.push(`/runs/${run.id}`)}
-                    className={`cursor-pointer border-b border-slate-100 transition-all hover:bg-slate-50 dark:border-white/[0.03] dark:hover:bg-white/[0.04] ${
-                      i % 2 === 1 ? "bg-slate-50/50 dark:bg-white/[0.01]" : ""
+                    className={`cursor-pointer border-b border-gray-100 transition-all hover:bg-blue-50/40 dark:border-[#1e1e1e] dark:hover:bg-[#1a1a1a] ${
+                      i % 2 === 1 ? "bg-slate-50/60 dark:bg-[#131313]" : "bg-white dark:bg-[#111]"
                     }`}
                   >
                     {/* Strategy chip */}

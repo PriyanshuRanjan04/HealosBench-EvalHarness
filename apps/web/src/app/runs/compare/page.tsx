@@ -143,9 +143,9 @@ function WinnerBanner({ result, winsA, winsB }: { result: CompareResult; winsA: 
 function DeltaTable({ result }: { result: CompareResult }) {
   const { fieldDeltas } = result;
   return (
-    <div className="animate-fade-in overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-white/[0.06] dark:bg-[#111]">
+    <div className="animate-fade-in overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-lg dark:border-[#222] dark:bg-[#111] dark:shadow-none">
       <table className="w-full text-sm">
-        <thead className="border-b border-gray-200 bg-gray-100 dark:border-white/[0.06] dark:bg-white/[0.02]">
+        <thead className="border-b border-gray-200 bg-gray-100 dark:border-[#222] dark:bg-[#161616]">
           <tr className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-slate-500">
             <th className="px-4 py-3.5 text-left">Field</th>
             <th className="px-4 py-3.5 text-right">Run A</th>
@@ -163,8 +163,8 @@ function DeltaTable({ result }: { result: CompareResult }) {
             return (
               <tr key={key} className={`border-b transition-colors ${
                 isOverall
-                  ? "border-gray-200 bg-gray-50 font-semibold dark:border-white/[0.08] dark:bg-white/[0.04]"
-                  : `${i % 2 === 0 ? "bg-white dark:bg-transparent" : "bg-gray-50/50 dark:bg-white/[0.01]"} border-gray-100 hover:bg-blue-50/30 dark:border-white/[0.03] dark:hover:bg-white/[0.02]`
+                  ? "border-gray-200 bg-gray-50 font-semibold dark:border-[#222] dark:bg-[#1a1a1a]"
+                  : `${i % 2 === 0 ? "bg-white dark:bg-[#111]" : "bg-gray-50/50 dark:bg-[#131313]"} border-gray-100 hover:bg-blue-50/30 dark:border-[#1e1e1e] dark:hover:bg-[#1a1a1a]`
               }`}>
                 <td className="px-4 py-3 text-gray-800 dark:text-slate-200">
                   {isOverall ? <strong>{label}</strong> : label}

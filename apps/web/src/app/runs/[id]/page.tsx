@@ -246,9 +246,9 @@ function CasesTable({ cases }: { cases: CaseResult[] }) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-transparent">
+    <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-lg dark:border-[#222] dark:bg-[#111] dark:shadow-none">
       <table className="w-full text-sm">
-        <thead className="border-b border-gray-200 bg-gray-50 dark:border-zinc-800 dark:bg-zinc-900/70">
+        <thead className="border-b border-gray-200 bg-gray-50 dark:border-[#222] dark:bg-[#161616]">
           <tr className="text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-zinc-500">
             <th className="w-6 px-3 py-3" />
             <th className="px-3 py-3">Case ID</th>
@@ -263,7 +263,7 @@ function CasesTable({ cases }: { cases: CaseResult[] }) {
           </tr>
         </thead>
         <tbody>
-          {cases.map((cr) => {
+          {cases.map((cr, i) => {
             const isOpen = expanded.has(cr.transcriptId);
             const { scores } = cr;
             return (
@@ -271,8 +271,12 @@ function CasesTable({ cases }: { cases: CaseResult[] }) {
                 <tr
                   key={cr.transcriptId}
                   onClick={() => toggle(cr.transcriptId)}
-                  className={`cursor-pointer border-b border-gray-100 transition-colors dark:border-zinc-800/60 ${
-                    isOpen ? "bg-blue-50 dark:bg-zinc-800/40" : "hover:bg-gray-50 dark:hover:bg-zinc-800/25"
+                  className={`cursor-pointer border-b transition-colors dark:border-[#1e1e1e] ${
+                    isOpen
+                      ? "bg-blue-50 dark:bg-[#1a1a1a]"
+                      : `hover:bg-blue-50/40 dark:hover:bg-[#1a1a1a] ${
+                          i % 2 === 1 ? "bg-slate-50/60 dark:bg-[#131313]" : "bg-white dark:bg-[#111]"
+                        }`
                   }`}
                 >
                   {/* Chevron */}
