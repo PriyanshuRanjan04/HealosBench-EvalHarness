@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import type { RunDetail, CaseResult, FieldScores, HallucinationFlag, ExtractionSchema } from "@test-evals/shared";
 import { api } from "@/lib/api";
@@ -345,9 +345,9 @@ function CasesTable({ cases }: { cases: CaseResult[] }) {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
-export default function RunDetailPage({ params }: { params: { id: string } }) {
+export default function RunDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
-  const { id } = params;
+  const { id } = use(params);
 
   const [run, setRun] = useState<RunDetail | null>(null);
   const [loading, setLoading] = useState(true);
