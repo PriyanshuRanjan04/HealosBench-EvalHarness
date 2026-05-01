@@ -7,6 +7,7 @@
  * Examples:
  *   bun run eval
  *   bun run eval --strategy cot
+ *   bun run eval --strategy cot --model llama-3.3-70b-versatile
  *   bun run eval --strategy few_shot --model claude-haiku-4-5-20251001
  */
 
@@ -41,7 +42,7 @@ function repoRoot(...segments: string[]): string {
 // ─── Argument parsing ────────────────────────────────────────────────────────
 
 const VALID_STRATEGIES: PromptStrategy[] = ["zero_shot", "few_shot", "cot"];
-const DEFAULT_MODEL = "claude-haiku-4-5-20251001";
+const DEFAULT_MODEL = "llama-3.1-8b-instant";
 
 function parseArgs(): { strategy: PromptStrategy; model: string; filter?: string[] } {
   const args = process.argv.slice(2);

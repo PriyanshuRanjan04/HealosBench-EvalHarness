@@ -12,8 +12,9 @@ import ScoreBar from "@/components/ScoreBar";
 const STRATEGIES: PromptStrategy[] = ["zero_shot", "few_shot", "cot"];
 
 const MODELS = [
-  { value: "claude-haiku-4-5-20251001", label: "claude-haiku-4-5 (Anthropic)" },
-  { value: "llama-3.3-70b-versatile",   label: "llama-3.3-70b (Groq)" },
+  { value: "llama-3.1-8b-instant",     label: "llama-3.1-8b-instant (Groq — Fast)" },
+  { value: "llama-3.3-70b-versatile",  label: "llama-3.3-70b-versatile (Groq — Best)" },
+  { value: "claude-haiku-4-5-20251001", label: "claude-haiku-4-5-20251001 (Anthropic)" },
 ];
 
 function fmtCost(n: number) {

@@ -2,8 +2,11 @@
  * runner.service.ts
  *
  * Orchestrates end-to-end eval runs with:
- *   - Concurrency control  : simple semaphore (MAX_CONCURRENT = 5)
- *   - Rate-limit handling  : exponential backoff on Anthropic 429 errors
+ *   - Concurrency control  : per-model semaphore (see getRateLimitProfile)
+ *                            llama-3.1-8b-instant → 5 concurrent, 1s delay
+ *                            llama-3.3-70b        → 3 concurrent, 3s delay
+ *                            Anthropic/other      → 3 concurrent, 2s delay
+ *   - Rate-limit handling  : exponential backoff on 429 errors
  *                            starting at 2 s, doubling up to 32 s, max 5 retries
  *   - Resumability         : resumeRun() finds un-completed cases in the DB
  *                            and continues from where the run was interrupted
@@ -121,7 +124,27 @@ class Semaphore {
   }
 }
 
-const MAX_CONCURRENT = 5;
+// ── Per-model rate-limit profiles ───────────────────────────────────────────
+//
+// llama-3.1-8b-instant   : 100k TPM  → concurrency=5, delay=1s
+// llama-3.3-70b-versatile:   6k TPM  → concurrency=3, delay=3s
+// everything else (Anthropic, etc.)  → concurrency=3, delay=2s
+
+interface RateLimitProfile {
+  maxConcurrent: number;
+  caseDelayMs: number;
+}
+
+function getRateLimitProfile(model: string): RateLimitProfile {
+  if (model.includes("llama-3.1-8b")) {
+    return { maxConcurrent: 5, caseDelayMs: 1_000 };
+  }
+  if (model.includes("llama-3.3-70b")) {
+    return { maxConcurrent: 3, caseDelayMs: 3_000 };
+  }
+  // Anthropic / other
+  return { maxConcurrent: 3, caseDelayMs: 2_000 };
+}
 
 // ============================================================
 // §4  Exponential backoff for Anthropic 429 errors
@@ -491,8 +514,13 @@ export async function startRun(options: StartRunOptions): Promise<string> {
   );
 
   // --- Process with semaphore ---
-  const sem = new Semaphore(MAX_CONCURRENT);
+  const { maxConcurrent, caseDelayMs } = getRateLimitProfile(model);
+  const sem = new Semaphore(maxConcurrent);
   let completed = 0;
+
+  console.log(
+    `[runner] rate-limit profile: maxConcurrent=${maxConcurrent} caseDelayMs=${caseDelayMs}`,
+  );
 
   try {
     await Promise.all(
@@ -509,6 +537,9 @@ export async function startRun(options: StartRunOptions): Promise<string> {
               `f1=${result.scores.overall.toFixed(3)} ` +
               `cost=$${result.costUsd.toFixed(5)}`,
           );
+
+          // Polite inter-case delay to stay within TPM limits
+          if (completed < dataset.length) await sleep(caseDelayMs);
         }),
       ),
     );
@@ -600,7 +631,8 @@ export async function resumeRun(
     .where(eq(runs.id, runId));
 
   const startWallMs = Date.now();
-  const sem = new Semaphore(MAX_CONCURRENT);
+  const { maxConcurrent, caseDelayMs } = getRateLimitProfile(model);
+  const sem = new Semaphore(maxConcurrent);
   const totalForProgress = run.totalCases ?? remaining.length;
   let completed = doneIds.size;
 
@@ -624,6 +656,8 @@ export async function resumeRun(
             `[runner] resume ${completed}/${totalForProgress} ${entry.id} ` +
               `f1=${result.scores.overall.toFixed(3)}`,
           );
+
+          if (completed < totalForProgress) await sleep(caseDelayMs);
         }),
       ),
     );
@@ -703,7 +737,8 @@ export async function launchRun(
     `[runner] launchRun id=${runId} strategy=${strategyName} model=${model} cases=${dataset.length}`,
   );
 
-  const sem = new Semaphore(MAX_CONCURRENT);
+  const { maxConcurrent, caseDelayMs } = getRateLimitProfile(model);
+  const sem = new Semaphore(maxConcurrent);
   let completed = 0;
 
   const bgPromise = (async () => {
@@ -719,6 +754,7 @@ export async function launchRun(
               `[runner] ${completed}/${dataset.length} ${entry.id} ` +
                 `f1=${result.scores.overall.toFixed(3)} cost=$${result.costUsd.toFixed(5)}`,
             );
+            if (completed < dataset.length) await sleep(caseDelayMs);
           }),
         ),
       );
