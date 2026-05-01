@@ -1,0 +1,2469 @@
+{
+  "runId": "39047704-bcba-4020-8ec8-23da964f8d17",
+  "strategy": "cot",
+  "model": "llama-3.1-8b-instant",
+  "timestamp": "2026-05-01T15:50:12.243Z",
+  "cases": [
+    {
+      "transcriptId": "case_001",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "sore throat for about four days, and now my nose is completely stuffed up",
+        "vitals": {
+          "bp": "122/78",
+          "hr": 88,
+          "temp_f": 100.4,
+          "spo2": 98
+        },
+        "medications": [
+          {
+            "name": "ibuprofen",
+            "dose": "400 mg",
+            "frequency": "every 6 hours as needed",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "viral upper respiratory infection"
+          }
+        ],
+        "plan": [
+          "take ibuprofen 400 mg every 6 hours as needed for the throat pain and fever",
+          "plenty of fluids",
+          "saline nasal spray"
+        ],
+        "follow_up": {
+          "interval_days": 7,
+          "reason": "if not improving or spiking a fever above 102"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.8930817610062893,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "follow_up": 0.3793103448275862,
+        "overall": 0.8787320176389793
+      },
+      "attempts": 1,
+      "tokensInput": 917,
+      "tokensOutput": 216,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0015975999999999998,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 486
+    },
+    {
+      "transcriptId": "case_002",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "pressure behind my eyes and cheeks for ten days, with yellow-green stuff coming out my nose",
+        "vitals": {
+          "bp": "118/76",
+          "hr": 82,
+          "temp_f": 101.2,
+          "spo2": 97
+        },
+        "medications": [
+          {
+            "name": "amoxicillin-clavulanate",
+            "dose": "875 mg",
+            "frequency": "twice daily",
+            "route": null
+          },
+          {
+            "name": "pseudoephedrine",
+            "dose": "30 mg",
+            "frequency": "every 6 hours",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "acute bacterial sinusitis"
+          }
+        ],
+        "plan": [
+          "use a saline rinse twice a day",
+          "take pseudoephedrine 30 mg every 6 hours for congestion if it doesn't keep you awake"
+        ],
+        "follow_up": {
+          "interval_days": 5,
+          "reason": "if not significantly better"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.8431372549019608,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        },
+        "follow_up": 0.37037037037037035,
+        "overall": 0.8133623819898329
+      },
+      "attempts": 1,
+      "tokensInput": 907,
+      "tokensOutput": 248,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0017176,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 395
+    },
+    {
+      "transcriptId": "case_007",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "body aches, fever, headache, and a dry cough for three days",
+        "vitals": {
+          "bp": "128/84",
+          "hr": 104,
+          "temp_f": 101.8,
+          "spo2": 94
+        },
+        "medications": [
+          {
+            "name": "oseltamivir",
+            "dose": "75 mg",
+            "frequency": "twice daily",
+            "route": null
+          },
+          {
+            "name": "acetaminophen",
+            "dose": "650 mg",
+            "frequency": "every 6 hours as needed",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "flu A positive",
+            "icd10": "J09.9"
+          }
+        ],
+        "plan": [
+          "start oseltamivir 75 mg twice daily for 5 days",
+          "acetaminophen 650 mg every 6 hours as needed",
+          "push fluids and rest",
+          "recheck SpO2 at home if it drops below 92 or you get worse breathing"
+        ],
+        "follow_up": {
+          "interval_days": 3,
+          "reason": "check in by message"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.9734513274336283,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.8,
+          "f1": 0.888888888888889
+        },
+        "follow_up": 0.9754098360655737,
+        "overall": 0.8062916753980152
+      },
+      "attempts": 1,
+      "tokensInput": 891,
+      "tokensOutput": 284,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0018488000000000003,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 6513
+    },
+    {
+      "transcriptId": "case_006",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Seasonal allergies",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "fluticasone nasal spray",
+            "dose": "2 sprays in each nostril once daily",
+            "frequency": "daily",
+            "route": "nasal spray"
+          },
+          {
+            "name": "cetirizine",
+            "dose": "10 mg",
+            "frequency": "at bedtime",
+            "route": "oral"
+          },
+          {
+            "name": "ketotifen ophthalmic drops",
+            "dose": "1 drop in each eye twice daily as needed",
+            "frequency": "twice daily as needed",
+            "route": "ophthalmic drops"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "allergic rhinitis"
+          }
+        ],
+        "plan": [
+          "Stop loratadine",
+          "Start fluticasone nasal spray, 2 sprays in each nostril once daily",
+          "Add cetirizine 10 mg at bedtime",
+          "Try ketotifen ophthalmic drops, 1 drop in each eye twice daily as needed"
+        ],
+        "follow_up": {
+          "interval_days": 21,
+          "reason": "If still struggling"
+        }
+      },
+      "scores": {
+        "chief_complaint": 1,
+        "vitals": 1,
+        "medications": {
+          "precision": 0.3333333333333333,
+          "recall": 0.3333333333333333,
+          "f1": 0.3333333333333333
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.8,
+          "f1": 0.888888888888889
+        },
+        "follow_up": 0.4065934065934066,
+        "overall": 0.7714692714692716
+      },
+      "attempts": 1,
+      "tokensInput": 879,
+      "tokensOutput": 316,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0019672,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 26569
+    },
+    {
+      "transcriptId": "case_003",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 32203
+    },
+    {
+      "transcriptId": "case_009",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 2204
+    },
+    {
+      "transcriptId": "case_008",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 33201
+    },
+    {
+      "transcriptId": "case_004",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "cough for three weeks",
+        "vitals": {
+          "bp": "124/80",
+          "hr": 92,
+          "temp_f": 99.8,
+          "spo2": 95
+        },
+        "medications": [
+          {
+            "name": "albuterol",
+            "dose": "two puffs",
+            "frequency": "every 4 to 6 hours",
+            "route": "inhaler"
+          },
+          {
+            "name": "benzonatate",
+            "dose": "100 mg",
+            "frequency": "three times daily",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "post-viral acute bronchitis with some bronchospasm"
+          }
+        ],
+        "plan": [
+          "albuterol inhaler - two puffs every 4 to 6 hours as needed for wheeze and cough",
+          "benzonatate 100 mg three times daily for cough suppression"
+        ],
+        "follow_up": {
+          "interval_days": 14,
+          "reason": "if it lingers past four weeks total or you start having fevers"
+        }
+      },
+      "scores": {
+        "chief_complaint": 1,
+        "vitals": 1,
+        "medications": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.6666666666666666,
+          "f1": 0.8
+        },
+        "follow_up": 0.40131578947368424,
+        "overall": 0.7835526315789473
+      },
+      "attempts": 1,
+      "tokensInput": 913,
+      "tokensOutput": 268,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0018024,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 50557
+    },
+    {
+      "transcriptId": "case_011",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 26200
+    },
+    {
+      "transcriptId": "case_012",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "IBS flare with bloating, diarrhea, constipation, and crampy pains",
+        "vitals": {
+          "bp": "116/72",
+          "hr": 80,
+          "temp_f": 98.4,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "dicyclomine",
+            "dose": "10 mg",
+            "frequency": "three times daily",
+            "route": "before meals"
+          },
+          {
+            "name": "simethicone",
+            "dose": "125 mg",
+            "frequency": "as needed",
+            "route": "with meals"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "IBS flare"
+          }
+        ],
+        "plan": [
+          "try a low-FODMAP diet for 4 to 6 weeks",
+          "try mindfulness or 20 minutes of walking daily"
+        ],
+        "follow_up": {
+          "interval_days": 42,
+          "reason": "to see how the diet trial went and whether we need to do further workup"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.8181818181818182,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        },
+        "follow_up": 0.9589041095890412,
+        "overall": 0.9072920990729211
+      },
+      "attempts": 1,
+      "tokensInput": 879,
+      "tokensOutput": 258,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0017352000000000001,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 15478
+    },
+    {
+      "transcriptId": "case_010",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 37207
+    },
+    {
+      "transcriptId": "case_014",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 20197
+    },
+    {
+      "transcriptId": "case_017",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Patient's concern about high LDL",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "atorvastatin",
+            "dose": "20 mg",
+            "frequency": "once a day",
+            "route": "at bedtime"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "High LDL"
+          }
+        ],
+        "plan": [
+          "Start atorvastatin 20 mg once a day at bedtime",
+          "Continue Mediterranean-style diet",
+          "Fewer refined carbs",
+          "150 minutes of moderate exercise weekly",
+          "Recheck lipid panel and ALT in 3 months"
+        ],
+        "follow_up": {
+          "interval_days": 90,
+          "reason": "Recheck LDL and ALT"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.7045454545454546,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0.8,
+          "recall": 1,
+          "f1": 0.888888888888889
+        },
+        "follow_up": 0.9545454545454546,
+        "overall": 0.7579966329966329
+      },
+      "attempts": 1,
+      "tokensInput": 858,
+      "tokensOutput": 206,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0015104,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 385
+    },
+    {
+      "transcriptId": "case_018",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Pretty stable. I've been doing my daily weights. Up about 2 pounds this week.",
+        "vitals": {
+          "bp": "118/74",
+          "hr": 72,
+          "temp_f": 98,
+          "spo2": 96
+        },
+        "medications": [
+          {
+            "name": "furosemide",
+            "dose": "40 mg",
+            "frequency": "once daily",
+            "route": null
+          },
+          {
+            "name": "carvedilol",
+            "dose": "12.5 mg",
+            "frequency": "twice daily",
+            "route": null
+          },
+          {
+            "name": "sacubitril-valsartan",
+            "dose": "49/51 mg",
+            "frequency": "twice daily",
+            "route": null
+          },
+          {
+            "name": "spironolactone",
+            "dose": "25 mg",
+            "frequency": "once daily",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "CHF"
+          }
+        ],
+        "plan": [
+          "bump furosemide from 20 mg to 40 mg once daily for the next week, then go back to 20 if the weight comes off",
+          "continue carvedilol 12.5 mg twice daily, sacubitril-valsartan 49/51 mg twice daily, and spironolactone 25 mg once daily",
+          "stick to less than 2 grams sodium and 2 liters fluid a day",
+          "daily morning weights — call if you gain more than 3 pounds in a day or 5 in a week",
+          "get a basic metabolic panel in 2 weeks to check potassium and kidney function"
+        ],
+        "follow_up": {
+          "interval_days": 42,
+          "reason": "CHF check-in"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.8111111111111111,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.7142857142857143,
+          "f1": 0.8333333333333333
+        },
+        "follow_up": 0.8636363636363636,
+        "overall": 0.9180134680134678
+      },
+      "attempts": 1,
+      "tokensInput": 914,
+      "tokensOutput": 430,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0024511999999999997,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 3638
+    },
+    {
+      "transcriptId": "case_016",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 23240
+    },
+    {
+      "transcriptId": "case_013",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 47202
+    },
+    {
+      "transcriptId": "case_015",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 33186
+    },
+    {
+      "transcriptId": "case_021",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "low back pain",
+        "vitals": {
+          "bp": "124/78",
+          "hr": 72,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dose": "600 mg",
+            "frequency": "three times daily",
+            "route": "with food"
+          },
+          {
+            "name": "Cyclobenzaprine",
+            "dose": "10 mg",
+            "frequency": "at bedtime as needed",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "acute mechanical low back strain"
+          }
+        ],
+        "plan": [
+          "Ibuprofen 600 mg three times daily with food for 7 to 10 days",
+          "Cyclobenzaprine 10 mg at bedtime as needed for muscle spasm",
+          "Stay active. Walk regularly, avoid bed rest. Heat can help."
+        ],
+        "follow_up": {
+          "interval_days": 28,
+          "reason": "if not significantly better or red flags develop"
+        }
+      },
+      "scores": {
+        "chief_complaint": 1,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.6,
+          "f1": 0.7499999999999999
+        },
+        "follow_up": 0.41732283464566927,
+        "overall": 0.8612204724409449
+      },
+      "attempts": 1,
+      "tokensInput": 895,
+      "tokensOutput": 259,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.001752,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 3494
+    },
+    {
+      "transcriptId": "case_005",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 3,
+      "tokensInput": 2081,
+      "tokensOutput": 539,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0038208,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 113333
+    },
+    {
+      "transcriptId": "case_020",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 27214
+    },
+    {
+      "transcriptId": "case_023",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Right shoulder pain when reaching overhead or behind back, hurts at night.",
+        "vitals": {
+          "bp": "122/78",
+          "hr": 78,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "Naproxen",
+            "dose": "500 mg",
+            "frequency": "twice daily",
+            "route": "with food"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "rotator cuff impingement, likely supraspinatus tendinopathy"
+          }
+        ],
+        "plan": [
+          "Rest from overhead activity",
+          "Refer to physical therapy for rotator cuff strengthening and posture work",
+          "Ice 15 to 20 minutes a few times a day"
+        ],
+        "follow_up": {
+          "interval_days": 42,
+          "reason": "If not improving in 6 weeks of PT, consider subacromial corticosteroid injection"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.9102564102564102,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.6,
+          "f1": 0.7499999999999999
+        },
+        "follow_up": 0.9216216216216216,
+        "overall": 0.9303130053130052
+      },
+      "attempts": 1,
+      "tokensInput": 889,
+      "tokensOutput": 229,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0016272,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 30576
+    },
+    {
+      "transcriptId": "case_022",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 42202
+    },
+    {
+      "transcriptId": "case_024",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 2,
+      "tokensInput": 903,
+      "tokensOutput": 238,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0016744000000000002,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 38669
+    },
+    {
+      "transcriptId": "case_019",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 2,
+      "tokensInput": 828,
+      "tokensOutput": 243,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0016344,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 58747
+    },
+    {
+      "transcriptId": "case_028",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "I can't fall asleep until 2 or 3 am, and even then I wake up multiple times. Been this way for two months.",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "melatonin",
+            "dose": "3 mg",
+            "frequency": "about 30 minutes before bedtime",
+            "route": null
+          }
+        ],
+        "diagnoses": [],
+        "plan": [
+          "No caffeine after noon",
+          "No phones in bed",
+          "Wind-down routine starting an hour before bed",
+          "Consistent wake time, even on weekends",
+          "Try melatonin 3 mg about 30 minutes before bedtime for two weeks",
+          "Use a CBT-I app"
+        ],
+        "follow_up": {
+          "interval_days": 28,
+          "reason": "If sleep isn't improving"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.9569377990430622,
+        "vitals": 1,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "follow_up": 0.8382352941176471,
+        "overall": 0.6325288488601183
+      },
+      "attempts": 1,
+      "tokensInput": 878,
+      "tokensOutput": 223,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0015944000000000002,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 404
+    },
+    {
+      "transcriptId": "case_025",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 29207
+    },
+    {
+      "transcriptId": "case_027",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Mental health follow-up",
+        "vitals": {
+          "bp": "118/74",
+          "hr": 70,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "fluoxetine",
+            "dose": "20 mg",
+            "frequency": "once daily",
+            "route": null
+          }
+        ],
+        "diagnoses": [],
+        "plan": [
+          "continue fluoxetine 20 mg once daily",
+          "continue weekly therapy",
+          "recommend at least 9 to 12 months of medication once you're well to prevent relapse"
+        ],
+        "follow_up": {
+          "interval_days": 56,
+          "reason": "mood worsens or any thoughts of self-harm"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.825,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.75,
+          "f1": 0.8571428571428571
+        },
+        "follow_up": 0.8960396039603961,
+        "overall": 0.7630304101838755
+      },
+      "attempts": 1,
+      "tokensInput": 851,
+      "tokensOutput": 182,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0014088000000000002,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 18407
+    },
+    {
+      "transcriptId": "case_026",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "anxious all the time, chest feels tight, trouble sleeping",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "sertraline",
+            "dose": "25 mg",
+            "frequency": "once daily",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "severe generalized anxiety disorder"
+          }
+        ],
+        "plan": [
+          "begin sertraline 25 mg once daily for a week, then increase to 50 mg once daily",
+          "refer for cognitive behavioral therapy",
+          "keep a regular schedule, no screens an hour before bed"
+        ],
+        "follow_up": {
+          "interval_days": 28,
+          "reason": "tolerating the medication"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.75,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 0.5,
+          "f1": 0.6666666666666666
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.75,
+          "f1": 0.8571428571428571
+        },
+        "follow_up": 0.8796296296296297,
+        "overall": 0.8589065255731922
+      },
+      "attempts": 1,
+      "tokensInput": 894,
+      "tokensOutput": 206,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0015392000000000001,
+      "hallucinations": [
+        {
+          "field": "diagnoses[0].description",
+          "value": "severe generalized anxiety disorder",
+          "reason": "\"severe generalized anxiety disorder\" could not be found in the transcript (no substring or fuzzy match > 0.85)"
+        }
+      ],
+      "schemaValid": true,
+      "wallTimeMs": 32501
+    },
+    {
+      "transcriptId": "case_032",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Sofia started wheezing last night and her cough is awful.",
+        "vitals": {
+          "bp": null,
+          "hr": 124,
+          "temp_f": 99,
+          "spo2": 92
+        },
+        "medications": [
+          {
+            "name": "albuterol",
+            "dose": "2.5 mg",
+            "frequency": "nebulized in clinic now",
+            "route": "nebulized"
+          },
+          {
+            "name": "ipratropium",
+            "dose": "0.5 mg",
+            "frequency": "nebulized in clinic now",
+            "route": "nebulized"
+          },
+          {
+            "name": "prednisolone",
+            "dose": "20 mg",
+            "frequency": "once daily for 5 days",
+            "route": "by mouth"
+          },
+          {
+            "name": "albuterol HFA",
+            "dose": "2 puffs",
+            "frequency": "every 4 hours through tomorrow, then taper as she improves",
+            "route": "inhalation"
+          },
+          {
+            "name": "fluticasone",
+            "dose": "88 mcg",
+            "frequency": "two puffs twice daily",
+            "route": "inhalation"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "moderate asthma exacerbation"
+          }
+        ],
+        "plan": [
+          "give her a nebulized albuterol 2.5 mg with ipratropium 0.5 mg in clinic now, then reassess",
+          "start prednisolone 20 mg by mouth once daily for 5 days",
+          "at home, albuterol HFA 2 puffs every 4 hours through tomorrow, then taper as she improves",
+          "continue her fluticasone 88 mcg two puffs twice daily"
+        ],
+        "follow_up": {
+          "interval_days": 2,
+          "reason": "recheck"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.7189542483660131,
+        "vitals": 1,
+        "medications": {
+          "precision": 0.2,
+          "recall": 0.2,
+          "f1": 0.20000000000000004
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.8,
+          "f1": 0.888888888888889
+        },
+        "follow_up": 0.5,
+        "overall": 0.7179738562091504
+      },
+      "attempts": 1,
+      "tokensInput": 938,
+      "tokensOutput": 458,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0025824,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 19925
+    },
+    {
+      "transcriptId": "case_029",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 41199
+    },
+    {
+      "transcriptId": "case_033",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "itchy red rash on forearms and back of knees",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "triamcinolone",
+            "dose": "0.1% ointment",
+            "frequency": "twice daily",
+            "route": "topical"
+          },
+          {
+            "name": "cetirizine",
+            "dose": "10 mg",
+            "frequency": "once daily",
+            "route": "oral"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "atopic dermatitis"
+          }
+        ],
+        "plan": [
+          "switch back to a gentle, fragrance-free wash",
+          "use a thick fragrance-free moisturizer twice a day, especially after showers within 3 minutes",
+          "apply triamcinolone 0.1% ointment to affected areas twice daily for up to 2 weeks",
+          "take cetirizine 10 mg once daily"
+        ],
+        "follow_up": {
+          "interval_days": 14,
+          "reason": "if not improving or signs of skin infection"
+        }
+      },
+      "scores": {
+        "chief_complaint": 1,
+        "vitals": 1,
+        "medications": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.8,
+          "f1": 0.888888888888889
+        },
+        "follow_up": 0,
+        "overall": 0.7314814814814815
+      },
+      "attempts": 1,
+      "tokensInput": 900,
+      "tokensOutput": 277,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.001828,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 21511
+    },
+    {
+      "transcriptId": "case_031",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 35199
+    },
+    {
+      "transcriptId": "case_030",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 41190
+    },
+    {
+      "transcriptId": "case_038",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Forgetting contraception pills",
+        "vitals": {
+          "bp": "116/72",
+          "hr": 68,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "ibuprofen",
+            "dose": "600 mg",
+            "frequency": "one hour before appointment",
+            "route": "oral"
+          }
+        ],
+        "diagnoses": [],
+        "plan": [
+          "Negative pregnancy test the day of insertion",
+          "Continue current pill until then",
+          "Schedule placement in 2 weeks",
+          "Placement of hormonal IUD"
+        ],
+        "follow_up": {
+          "interval_days": 14,
+          "reason": "Procedure visit for IUD placement"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.8440366972477065,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "follow_up": 1,
+        "overall": 0.8073394495412844
+      },
+      "attempts": 1,
+      "tokensInput": 883,
+      "tokensOutput": 176,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0014104,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 3404
+    },
+    {
+      "transcriptId": "case_034",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 19197
+    },
+    {
+      "transcriptId": "case_035",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 18198
+    },
+    {
+      "transcriptId": "case_041",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "headaches",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "naproxen",
+            "dose": "440 mg",
+            "frequency": "as needed up to twice a day",
+            "route": null
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "chronic tension-type headache"
+          }
+        ],
+        "plan": [
+          "naproxen 440 mg as needed up to twice a day, max 10 days a month",
+          "stress reduction",
+          "posture and ergonomics",
+          "regular exercise",
+          "hydration",
+          "sleep",
+          "try a soft diet for a few days",
+          "warm compresses",
+          "consider a night guard if you grind",
+          "message in 4 weeks with an update"
+        ],
+        "follow_up": {
+          "interval_days": 28,
+          "reason": "update on headaches"
+        }
+      },
+      "scores": {
+        "chief_complaint": 1,
+        "vitals": 1,
+        "medications": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 0.7,
+          "recall": 1,
+          "f1": 0.8235294117647058
+        },
+        "follow_up": 0.868421052631579,
+        "overall": 0.9486584107327141
+      },
+      "attempts": 1,
+      "tokensInput": 894,
+      "tokensOutput": 239,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0016712,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 409
+    },
+    {
+      "transcriptId": "case_037",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 20208
+    },
+    {
+      "transcriptId": "case_036",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 31247
+    },
+    {
+      "transcriptId": "case_039",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "headaches",
+        "vitals": {
+          "bp": "124/78",
+          "hr": 76,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "Sumatriptan",
+            "dose": "50 mg",
+            "frequency": "by mouth at the first sign of migraine, may repeat in 2 hours if needed, max 100 mg in 24 hours",
+            "route": "by mouth"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "migraines"
+          }
+        ],
+        "plan": [
+          "track triggers — sleep, food, stress, dehydration",
+          "follow up in 8 weeks"
+        ],
+        "follow_up": {
+          "interval_days": 56,
+          "reason": "if you start having more than 4 migraines a month we'll talk daily preventive therapy"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.9090909090909091,
+        "vitals": 1,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.6666666666666666,
+          "f1": 0.8
+        },
+        "follow_up": 0.9491978609625669,
+        "overall": 0.7763814616755793
+      },
+      "attempts": 1,
+      "tokensInput": 874,
+      "tokensOutput": 224,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0015952,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 35549
+    },
+    {
+      "transcriptId": "case_040",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 31216
+    },
+    {
+      "transcriptId": "case_046",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "vitamin D level came back at 18 ng/mL",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dose": "50,000 IU",
+            "frequency": "once a week",
+            "route": "with a meal that contains fat"
+          },
+          {
+            "name": "Vitamin D3",
+            "dose": "2000 IU",
+            "frequency": "daily",
+            "route": "with a meal that contains fat"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "vitamin D deficiency"
+          }
+        ],
+        "plan": [
+          "Vitamin D3 50,000 IU once a week for 8 weeks",
+          "drop to a maintenance dose of 2000 IU daily",
+          "try to get 15 to 20 minutes of midday sunlight a few times a week",
+          "consider fortified foods"
+        ],
+        "follow_up": {
+          "interval_days": 90,
+          "reason": "recheck the level"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.8674698795180723,
+        "vitals": 1,
+        "medications": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 1,
+          "recall": 0.6666666666666666,
+          "f1": 0.8
+        },
+        "follow_up": 0.9583333333333333,
+        "overall": 0.8543005354752342
+      },
+      "attempts": 1,
+      "tokensInput": 832,
+      "tokensOutput": 275,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0017656,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 6537
+    },
+    {
+      "transcriptId": "case_043",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 29179
+    },
+    {
+      "transcriptId": "case_044",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 23194
+    },
+    {
+      "transcriptId": "case_045",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 20213
+    },
+    {
+      "transcriptId": "case_042",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 49225
+    },
+    {
+      "transcriptId": "case_048",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 20219
+    },
+    {
+      "transcriptId": "case_047",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 1,
+      "tokensInput": 0,
+      "tokensOutput": 0,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 22194
+    },
+    {
+      "transcriptId": "case_050",
+      "strategy": "cot",
+      "prediction": {
+        "chief_complaint": "Bike scrape",
+        "vitals": {
+          "bp": null,
+          "hr": null,
+          "temp_f": null,
+          "spo2": null
+        },
+        "medications": [
+          {
+            "name": "Acetaminophen",
+            "dose": "500 mg",
+            "frequency": "every 6 hours",
+            "route": "oral"
+          }
+        ],
+        "diagnoses": [
+          {
+            "description": "abrasion over the left knee with embedded grit"
+          }
+        ],
+        "plan": [
+          "irrigate with saline",
+          "scrub gently to get the debris out",
+          "apply petrolatum ointment",
+          "apply a non-stick dressing",
+          "wash gently with soap and water once a day",
+          "reapply petrolatum ointment and a fresh non-stick dressing",
+          "keep it covered for the first week"
+        ],
+        "follow_up": {
+          "interval_days": null,
+          "reason": "Increasing redness, warmth, pus, fever"
+        }
+      },
+      "scores": {
+        "chief_complaint": 0.9014084507042254,
+        "vitals": 1,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "plan": {
+          "precision": 0.8571428571428571,
+          "recall": 1,
+          "f1": 0.923076923076923
+        },
+        "follow_up": 0.5,
+        "overall": 0.7207475622968581
+      },
+      "attempts": 1,
+      "tokensInput": 909,
+      "tokensOutput": 237,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.0016752,
+      "hallucinations": [],
+      "schemaValid": true,
+      "wallTimeMs": 10478
+    },
+    {
+      "transcriptId": "case_049",
+      "strategy": "cot",
+      "prediction": null,
+      "scores": {
+        "chief_complaint": 0,
+        "vitals": 0,
+        "medications": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "diagnoses": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "plan": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "follow_up": 0,
+        "overall": 0
+      },
+      "attempts": 3,
+      "tokensInput": 3830,
+      "tokensOutput": 940,
+      "tokensCacheRead": 0,
+      "tokensCacheWrite": 0,
+      "costUsd": 0.006824,
+      "hallucinations": [],
+      "schemaValid": false,
+      "wallTimeMs": 48693
+    }
+  ]
+}

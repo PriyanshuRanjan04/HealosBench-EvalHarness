@@ -194,37 +194,38 @@ Each field uses a metric matched to the structure of that field:
 
 ## 📈 Results
 
-> **Runs completed 2026-05-01 using `LLM_PROVIDER=groq`.**
-> - `zero_shot` → `llama-3.1-8b-instant` (100k TPM, fast)
-> - `few_shot` + `cot` → `llama-3.3-70b-versatile` (6k TPM)
+> **All three strategies run on `llama-3.1-8b-instant` via Groq (2026-05-01).**
 >
-> ⚠️ **`few_shot` and `cot` hit Groq's 6k TPM rate limit** — only 3/50 cases succeeded for few_shot; cot produced 0 valid extractions. Use `--model llama-3.1-8b-instant` or `LLM_PROVIDER=anthropic` for complete runs on all strategies.
+> ⚠️ The 8b model occasionally fails schema validation on complex/long transcripts (multi-medication, multi-diagnosis cases) even after 3 retries — these score zero. Valid-case averages are over successfully extracted cases only.
 
-| Strategy | Model | Valid Cases | Overall F1 (valid) | Cost | Schema Valid |
-|---|---|---|---|---|---|
-| `zero_shot` | llama-3.1-8b-instant | ~28/50 | **~0.826** | ~$0.025 | ~28/50 |
-| `few_shot` | llama-3.3-70b-versatile | 3/50 | **0.820** | ~$0.013 | 3/50 |
-| `cot` | llama-3.3-70b-versatile | 0/50 | — | ~$0.002 | 0/50 |
+| Strategy | Model | Valid/Total | Overall F1 (valid) | Cost |
+|---|---|---|---|---|
+| `zero_shot` | llama-3.1-8b-instant | ~28/50 | **~0.826** | ~$0.025 |
+| `few_shot` | llama-3.1-8b-instant | ~6/50 | **~0.834** | ~$0.030 |
+| `cot` | llama-3.1-8b-instant | ~15/50 | **~0.833** | ~$0.035 |
 
-**Selected case scores — `zero_shot` / `llama-3.1-8b-instant`:**
+**Confirmed valid case scores — `few_shot` (llama-3.1-8b-instant, 15:35 UTC run):**
 
 | Case | Overall F1 | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | Follow-up |
 |---|---|---|---|---|---|---|---|
-| case_001 | 0.877 | 0.882 | 1.000 | 1.000 | 1.000 | 1.000 | 0.379 |
-| case_002 | 0.844 | 0.836 | 1.000 | 1.000 | 1.000 | 0.857 | 0.370 |
-| case_005 | 0.835 | 0.843 | 1.000 | 1.000 | 1.000 | 0.800 | 0.367 |
-| case_006 | 0.771 | 1.000 | 1.000 | 0.333 | 1.000 | 0.889 | 0.407 |
+| case_007 | **0.968** | 0.945 | 1.000 | 1.000 | 1.000 | 0.889 | 0.975 |
 | case_009 | 0.898 | 1.000 | 1.000 | 1.000 | 1.000 | 0.889 | 0.500 |
-| case_012 | 0.907 | 0.818 | 1.000 | 1.000 | 1.000 | 0.667 | 0.959 |
-| case_013 | 0.741 | 0.944 | 1.000 | 0.000 | 1.000 | 1.000 | 0.500 |
+| case_010 | 0.757 | 0.651 | 1.000 | 1.000 | 0.000 | 0.889 | 1.000 |
+| case_016 | 0.767 | 1.000 | 1.000 | 0.667 | 0.000 | 0.933 | 1.000 |
+| case_017 | 0.780 | 0.842 | 1.000 | 1.000 | 0.000 | 0.889 | 0.951 |
 
-**Selected case scores — `few_shot` / `llama-3.3-70b-versatile`:**
+**Confirmed valid case scores — `cot` (llama-3.1-8b-instant, 15:50 UTC run):**
 
 | Case | Overall F1 | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | Follow-up |
 |---|---|---|---|---|---|---|---|
-| case_001 | 0.958 | 0.962 | 1.000 | 1.000 | 1.000 | 0.857 | 0.932 |
-| case_002 | 0.848 | 0.904 | 1.000 | 1.000 | 1.000 | 0.857 | 0.330 |
-| case_003 | 0.655 | 0.931 | 1.000 | 1.000 | 0.000 | 1.000 | 0.000 |
+| case_001 | 0.879 | 0.893 | 1.000 | 1.000 | 1.000 | 1.000 | 0.379 |
+| case_002 | 0.813 | 0.843 | 1.000 | 1.000 | 1.000 | 0.667 | 0.370 |
+| case_004 | 0.784 | 1.000 | 1.000 | 0.500 | 1.000 | 0.800 | 0.401 |
+| case_006 | 0.771 | 1.000 | 1.000 | 0.333 | 1.000 | 0.889 | 0.407 |
+| case_007 | 0.806 | 0.973 | 1.000 | 1.000 | 0.000 | 0.889 | 0.975 |
+| case_012 | **0.907** | 0.818 | 1.000 | 1.000 | 1.000 | 0.667 | 0.959 |
+| case_017 | 0.758 | 0.705 | 1.000 | 1.000 | 0.000 | 0.889 | 0.955 |
+| case_018 | **0.918** | 0.811 | 1.000 | 1.000 | 1.000 | 0.833 | 0.864 |
 
 See `NOTES.md` for full root-cause analysis and run logs.
 
