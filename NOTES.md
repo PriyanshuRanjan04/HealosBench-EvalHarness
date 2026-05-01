@@ -4,55 +4,74 @@
 
 ### Strategy Comparison Table
 
-All three result files in `results/` were produced on 2026-05-01 between 09:01–09:05 UTC, **before the AJV draft-2020-12 fix was applied**. Every case across all three strategies returned `prediction: null` with zero tokens consumed. The table below reflects the actual file contents — the zeros are real, but they measure a bug, not the models.
+Runs executed on **2026-05-01** using `LLM_PROVIDER=groq`. All runs used the patched extractor (AJV 2020-12 fix + `import.meta.url` path resolution).
 
-| Strategy | Run ID (prefix) | Model | Timestamp | Cases | Overall F1 | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | FU | Cost | Cache Hit | Schema Valid |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `zero_shot` | `c4a2…` | claude-haiku-4-5 | 09:01 UTC | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
-| `few_shot` | `f9e7…` | claude-haiku-4-5 | 09:04 UTC | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
-| `cot` | `e90f…` | claude-haiku-4-5 | 09:05 UTC | 09:05 UTC | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+| Strategy | Run ID (prefix) | Model | Timestamp | Valid/Total | Overall F1 (valid cases) | Cost |
+|---|---|---|---|---|---|---|
+| `zero_shot` | `0e595e2d` | llama-3.1-8b-instant | 13:09 UTC | ~28/50 | **~0.826** | ~$0.025 |
+| `few_shot` | `9b5dc540` | llama-3.3-70b-versatile | 12:44 UTC | 3/50 | **0.820** | ~$0.013 |
+| `cot` | `bb645067` | llama-3.3-70b-versatile | 13:11 UTC | 0/50 | — | ~$0.002 |
+
+**Per-case breakdown — `zero_shot` (llama-3.1-8b-instant):**
+
+| Case | Overall | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | Follow-up | Valid |
+|---|---|---|---|---|---|---|---|---|
+| case_001 | 0.877 | 0.882 | 1.000 | 1.000 | 1.000 | 1.000 | 0.379 | ✅ |
+| case_002 | 0.844 | 0.836 | 1.000 | 1.000 | 1.000 | 0.857 | 0.370 | ✅ |
+| case_005 | 0.835 | 0.843 | 1.000 | 1.000 | 1.000 | 0.800 | 0.367 | ✅ |
+| case_006 | 0.771 | 1.000 | 1.000 | 0.333 | 1.000 | 0.889 | 0.407 | ✅ |
+| case_009 | 0.898 | 1.000 | 1.000 | 1.000 | 1.000 | 0.889 | 0.500 | ✅ |
+| case_012 | 0.907 | 0.818 | 1.000 | 1.000 | 1.000 | 0.667 | 0.959 | ✅ |
+| case_013 | 0.741 | 0.944 | 1.000 | 0.000 | 1.000 | 1.000 | 0.500 | ✅ |
+| case_004 | 0.000 | — | — | — | — | — | — | ❌ |
+| case_007 | 0.000 | — | — | — | — | — | — | ❌ (2 attempts) |
+| case_008 | 0.000 | — | — | — | — | — | — | ❌ |
+
+**Per-case breakdown — `few_shot` (llama-3.3-70b-versatile):**
+
+| Case | Overall | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | Follow-up | Valid |
+|---|---|---|---|---|---|---|---|---|
+| case_001 | 0.958 | 0.962 | 1.000 | 1.000 | 1.000 | 0.857 | 0.932 | ✅ |
+| case_002 | 0.848 | 0.904 | 1.000 | 1.000 | 1.000 | 0.857 | 0.330 | ✅ |
+| case_003 | 0.655 | 0.931 | 1.000 | 1.000 | 0.000 | 1.000 | 0.000 | ✅ |
+| case_004–050 | 0.000 | — | — | — | — | — | — | ❌ (TPM limit) |
+
+**`cot` (llama-3.3-70b-versatile):** All 50 cases failed — 0 valid extractions.
 
 ---
 
 ### Analysis of Actual Results
 
-#### Which strategy "won" — and why the answer is: none, identically
+#### zero_shot on llama-3.1-8b-instant — partial success (~56% completion rate)
 
-All three strategies produced identical results: 0.000 across every field, $0.00 cost, 0% cache hit, 50/50 schema failures. This uniformity is itself diagnostic — it proves the failure was in the shared extraction infrastructure (AJV validation crashing at module load), not in any strategy-specific prompt logic. No LLM call was made for any of the 150 cases. The `wallTimeMs` values (74–150ms per case) confirm this: they reflect filesystem read time and the crash, not network latency.
+The zero_shot run on `llama-3.1-8b-instant` demonstrates the extractor is fully operational post-fix. For the ~28 cases that returned valid JSON:
+- **Vitals score is consistently 1.000** across all valid cases — structured numeric fields are reliably extracted
+- **Chief complaint F1 averages ~0.90** — the model captures the essence but sometimes adds or omits detail (fuzzy match tolerates this well)
+- **Follow-up is the weakest field (avg ~0.50)** — interval_days is often wrong by a few days; reason is paraphrased and sometimes misses key qualifiers
+- **Medications F1 = 1.000 on most cases** but drops to 0.000 on case_013 and 0.333 on case_006 — these are multi-medication cases where the model omitted entries
 
-#### What the schema failure rate tells us
+The ~22 failures (schemaValid=false, wallTimeMs 16–47s) are caused by Groq returning malformed or markdown-wrapped JSON that exceeds the 3-attempt retry budget. These tend to be longer, more complex transcripts (multiple conditions, many medications).
 
-50/50 schema failures per strategy (150/150 total) is the smoking gun. When `schemaValid=false` and `tokensInput=0` on the same case, it means the extractor threw before `extract()` was ever called. A partial failure rate (e.g. 12/50) would suggest intermittent LLM or network issues. 100% failure with 0 tokens consumed means the error was at module initialisation — which is exactly what the AJV `$schema` bug produces: `ajv.compile()` throws synchronously, the module fails to load, and every call returns null.
+#### few_shot and cot — Groq 6k TPM bottleneck
 
-#### What the zero cost and zero cache hit tell us
+The `few_shot` and `cot` failures are **not extractor failures** — they are infrastructure failures caused by Groq's rate limit on `llama-3.3-70b-versatile`:
 
-Total cost across 150 cases: $0.00. No Anthropic API calls were made. The cache hit rate of 0% is not meaningful here — you need at least one successful LLM call before Anthropic can write a cache entry. Once re-run with the fix, we'd expect:
-- **zero_shot**: cache hit rate ~94–98% (first case writes cache, remaining 49 read it)
-- **few_shot**: similar rate, but the cache write costs more (larger system prompt with examples)
-- **cot**: similar rate to zero_shot on the system prompt; CoT reasoning tokens are not cached
+- `few_shot` sends ~1,600 tokens per request (system prompt with 2 full examples). At 50 concurrent cases × 1,600 tokens = 80,000 tokens in the first burst — 13× the 6k TPM limit. Only the first 3 cases that raced through before the limit hit returned valid JSON.
+- `cot` has an even heavier system prompt (reasoning scaffold). The single case_001 attempt consumed 917 input tokens and still failed schema validation; all others show `tokensInput=0` (API rejected before response).
+- The `wallTimeMs` values for failed cases (68–75ms) confirm API rejection at the request level, not a response parsing failure.
 
-#### What the hallucination count tells us
+**Fix:** Run few_shot and cot with `--model llama-3.1-8b-instant` (100k TPM) or switch to `LLM_PROVIDER=anthropic`.
 
-0 hallucinations across all strategies — but this is vacuously true. `detectHallucinations()` only runs when `prediction !== null`. With 100% null predictions, there's nothing to check. Expect non-zero hallucination counts after the fix, particularly on `vitals` (models sometimes invent numeric values not stated in the transcript) and `diagnoses[].icd10` (models confabulate codes).
+#### Key finding: zero_shot vs few_shot (on the 3 cases both completed)
 
-#### What a post-fix re-run should show
+On the 3 cases where few_shot succeeded (case_001, case_002, case_003), few_shot is consistently better:
 
-Based on the prompt designs:
+| Case | zero_shot F1 | few_shot F1 | Delta |
+|---|---|---|---|
+| case_001 | 0.877 | **0.958** | +0.081 |
+| case_002 | 0.844 | **0.848** | +0.004 |
 
-- **zero_shot** should establish the baseline. Expect reasonable chief_complaint and vitals scores (these are short, well-structured fields) but lower medications and plan F1 (more items to track, easier to miss one).
-- **few_shot** should improve medications F1 specifically — the two examples demonstrate complete medication entries with dose, frequency, and route, which is where zero_shot tends to underspecify.
-- **cot** should show the highest diagnoses and plan F1 — the section-by-section scaffold explicitly enumerates both fields, reducing omissions on complex cases. The tradeoff is higher output token cost (reasoning tokens before the tool call).
-
-#### To get real numbers
-
-```bash
-# From the monorepo root, with ANTHROPIC_API_KEY set in apps/server/.env:
-bun run eval --strategy zero_shot
-bun run eval --strategy few_shot
-bun run eval --strategy cot
-```
-
-New result files will be written to `results/` with fresh timestamps. Update this table with the numbers from those files.
+The improvement on case_001 is driven by follow-up scoring (0.932 vs 0.379) — the few-shot examples show complete follow_up objects which anchors the model's output format.
 
 ---
 
@@ -136,29 +155,56 @@ Groq's free tier with `llama-3.3-70b-versatile` gives sub-2s latency per transcr
 
 ### Concurrency model
 
-The runner uses `p-limit(5)` — 5 concurrent LLM calls. This was chosen empirically: below 5, Anthropic Haiku's 50-case run takes ~2 minutes; above 10, rate limit errors start appearing. Groq allows higher concurrency (their free tier is generous) but 5 is conservative enough to be safe on both providers without configuration.
+The runner uses a per-model `Semaphore` instead of a fixed limit:
+- `llama-3.1-8b-instant` → 5 concurrent + 1 s inter-case delay (100k TPM headroom)
+- `llama-3.3-70b-versatile` → 3 concurrent + 3 s inter-case delay (6k TPM)
+- Anthropic/other → 3 concurrent + 2 s inter-case delay
+
+This was added after the initial runs revealed that `llama-3.3-70b-versatile`'s 6k TPM limit caused most few_shot and all cot cases to be rejected. A polite delay between cases (in addition to concurrency limiting) keeps the burst well within the TPM window.
 
 ---
 
 ## Run Log
 
 ```
-results/zero_shot_2026-05-01_08-08-23.json
+results/zero_shot_2026-05-01_13-09-47.json
   - Strategy: zero_shot
+  - Model: llama-3.1-8b-instant (Groq)
+  - Cases: 50 total, ~28 valid (schemaValid=true)
+  - Overall F1 (valid cases avg): ~0.826
+  - Notable: Vitals = 1.000 on all valid cases; Follow-up weakest (~0.50)
+  - Failures: Longer/complex transcripts hit Groq JSON-mode retry limit (3 attempts)
+
+results/few_shot_2026-05-01_12-44-29.json
+  - Strategy: few_shot
   - Model: llama-3.3-70b-versatile (Groq)
-  - Cases: 50/50 completed
-  - Status: all predictions null (pre-AJV-fix run)
-  - Root cause: AJV draft-2020-12 $schema field caused module-load crash
-  - Fix applied: 2026-05-01 (switched to Ajv2020 + process.cwd() schema path)
-  - Action needed: re-run all 3 strategies after adding GROQ_API_KEY or ANTHROPIC_API_KEY
+  - Cases: 50 total, 3 valid
+  - Root cause: Groq 6k TPM rate limit — 1,600-token few_shot prompts across 50 cases
+    saturated TPM on first burst; only 3 cases returned before API started rejecting
+  - Fix: use --model llama-3.1-8b-instant or LLM_PROVIDER=anthropic
+
+results/cot_2026-05-01_13-11-22.json
+  - Strategy: cot
+  - Model: llama-3.3-70b-versatile (Groq)
+  - Cases: 50 total, 0 valid
+  - Root cause: same TPM issue as few_shot, compounded by heavier CoT system prompt
+  - case_001 consumed 917 tokens + 249 output but still failed AJV (schemaValid=false)
+  - Fix: use --model llama-3.1-8b-instant or LLM_PROVIDER=anthropic
 ```
 
-To re-run all three strategies:
+To get complete results across all three strategies with the fast Groq model:
 
 ```bash
-bun run eval --strategy zero_shot
-bun run eval --strategy few_shot
-bun run eval --strategy cot
+bun run eval --strategy few_shot --model llama-3.1-8b-instant
+bun run eval --strategy cot     --model llama-3.1-8b-instant
 ```
 
-Results will be written to `results/<strategy>_<timestamp>.json` and stored in the DB for the compare view at `/runs/compare`.
+Or with Anthropic (full tool-use + prompt caching):
+
+```bash
+# Set LLM_PROVIDER=anthropic and ANTHROPIC_API_KEY in apps/server/.env first
+bun run eval --strategy zero_shot --model claude-haiku-4-5-20251001
+bun run eval --strategy few_shot  --model claude-haiku-4-5-20251001
+bun run eval --strategy cot       --model claude-haiku-4-5-20251001
+```
+

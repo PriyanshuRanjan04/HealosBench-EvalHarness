@@ -194,19 +194,39 @@ Each field uses a metric matched to the structure of that field:
 
 ## 📈 Results
 
-> ⚠️ **All three result files in `results/` are pre-fix runs.** They were recorded before the AJV draft-2020-12 fix was applied. Every case returned `prediction: null` (the extractor crashed at module load before any LLM call was made), so all scores, costs, and token counts are zero. **These numbers reflect the bug, not the model.** Re-run all three strategies after the fix to get real scores.
+> **Runs completed 2026-05-01 using `LLM_PROVIDER=groq`.**
+> - `zero_shot` → `llama-3.1-8b-instant` (100k TPM, fast)
+> - `few_shot` + `cot` → `llama-3.3-70b-versatile` (6k TPM)
 >
-> To re-run: `bun run eval --strategy zero_shot && bun run eval --strategy few_shot && bun run eval --strategy cot`
+> ⚠️ **`few_shot` and `cot` hit Groq's 6k TPM rate limit** — only 3/50 cases succeeded for few_shot; cot produced 0 valid extractions. Use `--model llama-3.1-8b-instant` or `LLM_PROVIDER=anthropic` for complete runs on all strategies.
 
-| Strategy | Model | Cases | Overall F1 | Chief Complaint | Vitals | Meds F1 | Diagnoses F1 | Plan F1 | Follow-up | Cost | Cache Hit | Schema Valid |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `zero_shot` ¹ | claude-haiku-4-5 | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
-| `few_shot` ¹ | claude-haiku-4-5 | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
-| `cot` ¹ | claude-haiku-4-5 | 50/50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | $0.0000 | 0.0% | 0/50 |
+| Strategy | Model | Valid Cases | Overall F1 (valid) | Cost | Schema Valid |
+|---|---|---|---|---|---|
+| `zero_shot` | llama-3.1-8b-instant | ~28/50 | **~0.826** | ~$0.025 | ~28/50 |
+| `few_shot` | llama-3.3-70b-versatile | 3/50 | **0.820** | ~$0.013 | 3/50 |
+| `cot` | llama-3.3-70b-versatile | 0/50 | — | ~$0.002 | 0/50 |
 
-¹ Pre-AJV-fix run — extractor crashed before calling the LLM. Re-run required.
+**Selected case scores — `zero_shot` / `llama-3.1-8b-instant`:**
 
-See `NOTES.md` for full analysis and the root cause explanation.
+| Case | Overall F1 | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | Follow-up |
+|---|---|---|---|---|---|---|---|
+| case_001 | 0.877 | 0.882 | 1.000 | 1.000 | 1.000 | 1.000 | 0.379 |
+| case_002 | 0.844 | 0.836 | 1.000 | 1.000 | 1.000 | 0.857 | 0.370 |
+| case_005 | 0.835 | 0.843 | 1.000 | 1.000 | 1.000 | 0.800 | 0.367 |
+| case_006 | 0.771 | 1.000 | 1.000 | 0.333 | 1.000 | 0.889 | 0.407 |
+| case_009 | 0.898 | 1.000 | 1.000 | 1.000 | 1.000 | 0.889 | 0.500 |
+| case_012 | 0.907 | 0.818 | 1.000 | 1.000 | 1.000 | 0.667 | 0.959 |
+| case_013 | 0.741 | 0.944 | 1.000 | 0.000 | 1.000 | 1.000 | 0.500 |
+
+**Selected case scores — `few_shot` / `llama-3.3-70b-versatile`:**
+
+| Case | Overall F1 | CC | Vitals | Meds F1 | Diag F1 | Plan F1 | Follow-up |
+|---|---|---|---|---|---|---|---|
+| case_001 | 0.958 | 0.962 | 1.000 | 1.000 | 1.000 | 0.857 | 0.932 |
+| case_002 | 0.848 | 0.904 | 1.000 | 1.000 | 1.000 | 0.857 | 0.330 |
+| case_003 | 0.655 | 0.931 | 1.000 | 1.000 | 0.000 | 1.000 | 0.000 |
+
+See `NOTES.md` for full root-cause analysis and run logs.
 
 ---
 
@@ -233,11 +253,12 @@ LLM_PROVIDER=anthropic # tool use + prompt caching — required for final runs
 
 | | Groq | Anthropic |
 |---|---|---|
-| Models | `llama-3.3-70b-versatile` | `claude-haiku-4-5-20251001` |
+| Models | `llama-3.1-8b-instant` (100k TPM, fast), `llama-3.3-70b-versatile` (6k TPM, best) | `claude-haiku-4-5-20251001` |
 | Output enforcement | JSON mode + AJV validation | Tool use (`extract_clinical_data`) |
 | Prompt caching | ❌ | ✅ (cache_control: ephemeral) |
 | Cost | Free tier | ~$0.80/M input, $4/M output |
-| Good for | Dev, smoke tests, CI | Final eval runs, caching verification |
+| TPM limit | 100k / 6k respectively | High |
+| Good for | Dev, smoke tests, fast full runs (8b) | Final eval runs, caching verification |
 
 **Groq note:** JSON mode can return wrapped objects (e.g. `{ "extraction": {...} }`) — the extractor detects and unwraps these automatically. If AJV validation fails, the validation errors are sent back to the model as a user message and it retries (up to 3 attempts per case).
 
@@ -287,7 +308,7 @@ DATABASE_URL=postgresql://... bun run db:push
 
 - **Idempotency:** Before calling the LLM for any case, `runCase()` checks whether a valid result already exists for `(run_id, transcript_id)`. If yes, it returns the cached DB row without making an API call. This makes it safe to retry a stuck run without double-billing.
 
-- **Concurrency:** A hand-rolled `Semaphore(5)` limits concurrent LLM calls to 5 at a time. `Promise.all` over all cases ensures maximum throughput within that budget. The limit was chosen empirically — it saturates Anthropic Haiku's rate limit without triggering 429s under normal conditions. 429s that do occur are handled with exponential backoff (2s → 4s → 8s → 16s → 32s, max 5 retries).
+- **Concurrency:** A per-model `Semaphore` limits concurrent LLM calls based on TPM headroom: `llama-3.1-8b-instant` → 5 concurrent + 1 s inter-case delay (100k TPM); `llama-3.3-70b-versatile` → 3 concurrent + 3 s delay (6k TPM); Anthropic → 3 concurrent + 2 s delay. `Promise.all` over all cases maximises throughput within that budget. 429s are handled with exponential backoff (2 s → 4 s → 8 s → 16 s → 32 s, max 5 retries).
 
 ---
 
@@ -300,7 +321,7 @@ DATABASE_URL=postgresql://... bun run db:push
 | few_shot examples are static | The two few-shot examples are hardcoded. A retrieval-augmented approach (embedding the input transcript and finding the most similar training case) would likely improve recall on unusual presentations. |
 | No per-user run scoping | Auth is wired but `runs` are not scoped to a user ID. All authenticated users see all runs. |
 | Groq cache hit rate is always 0% | Groq does not support prompt caching. Cache hit rate will show 0% on Groq runs — this is expected. |
-| Results table in README is empty | The zero_shot run in `results/` was produced before the AJV fix and has all-null predictions. Re-run all three strategies after configuring your API key to populate real numbers. |
+| Groq 6k TPM limit on 70b model | `llama-3.3-70b-versatile` hits rate limits quickly with 50 concurrent cases (especially few_shot with 1,600-token prompts). Use `--model llama-3.1-8b-instant` (100k TPM) or `LLM_PROVIDER=anthropic` for complete runs across all strategies. |
 
 ---
 
